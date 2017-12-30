@@ -16,7 +16,7 @@
         </Grid.DataContext>
         <StackPanel Margin="10" Orientation="Vertical" HorizontalAlignment="Left">
             <DockPanel VerticalAlignment="Top" HorizontalAlignment="Left">
-                <DockPanel DockPanel.Dock="Top">
+                <DockPanel DockPanel.Dock="Top" Margin="0,10">
                     <Button Width="36" Height="36" HorizontalAlignment="Left">
                         <Image Source="../cog.ico" />
                     </Button>
@@ -39,27 +39,27 @@
                         </StackPanel>
                         <StackPanel VerticalAlignment="Top">
                             <Label Content="Target" HorizontalAlignment="Center" />
-                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.PhysicalResist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
-                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.FireResist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
-                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.ColdResist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
-                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.PoisonResist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
-                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.EnergyResist, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
+                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Physical, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
+                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Fire, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
+                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Cold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
+                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Poison, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
+                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Energy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
                         </StackPanel>
                         <StackPanel VerticalAlignment="Top">
                             <Label Content="Total" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.PhysicalResist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.FireResist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.ColdResist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.PoisonResist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.EnergyResist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.Physical, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.Fire, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.Cold, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.Poison, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.Energy, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
                         </StackPanel>
                         <StackPanel VerticalAlignment="Top">
                             <Label Content="Buffed" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=BuffedResistances.PhysicalResist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=BuffedResistances.FireResist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=BuffedResistances.ColdResist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=BuffedResistances.PoisonResist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=BuffedResistances.EnergyResist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                            <Label Content="{Binding Path=BuffedResistances.Physical, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                            <Label Content="{Binding Path=BuffedResistances.Fire, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                            <Label Content="{Binding Path=BuffedResistances.Cold, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                            <Label Content="{Binding Path=BuffedResistances.Poison, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                            <Label Content="{Binding Path=BuffedResistances.Energy, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
                         </StackPanel>
                     </DockPanel>
                     <DockPanel VerticalAlignment="Bottom" Margin="0,10,0,0">
@@ -84,10 +84,10 @@
                     <Label Content="Selected Suit" HorizontalAlignment="Center" />
                     <xcdg:DataGridControl HorizontalAlignment="Stretch" ItemsSource="{Binding Path=SelectedSuit.SuitPieces}" AutoCreateColumns="False"  MaxHeight="275" ReadOnly="True">
                         <xcdg:DataGridControl.View>
-                            <xcdg:TableflowView UseDefaultHeadersFooters="False">
+                            <xcdg:TableflowView UseDefaultHeadersFooters="False"  ShowRowSelectorPane="False">
                                 <xcdg:TableflowView.FixedHeaders>
                                     <DataTemplate>
-                                        <xcdg:ColumnManagerRow AllowSort="False" AllowColumnReorder="False" BorderThickness="0" />
+                                        <xcdg:ColumnManagerRow AllowSort="False" AllowColumnReorder="False" BorderThickness="0"/>
                                     </DataTemplate>
                                 </xcdg:TableflowView.FixedHeaders>
                             </xcdg:TableflowView>
@@ -96,24 +96,28 @@
                             <xcdg:Column Title="Id" FieldName="Id" Width="*" />
                             <xcdg:Column Title="Slot" FieldName="SlotType" Width="*" />
                             <xcdg:Column Title="Resource" FieldName="Resource.Name" Width="*" />
-                            <xcdg:Column Title="Physical" FieldName="Resistances.PhysicalResist" Width="*" />
-                            <xcdg:Column Title="Fire" FieldName="Resistances.FireResist" Width="*" />
-                            <xcdg:Column Title="Cold" FieldName="Resistances.ColdResist" Width="*" />
-                            <xcdg:Column Title="Poison" FieldName="Resistances.PoisonResist" Width="*" />
-                            <xcdg:Column Title="Energy" FieldName="Resistances.EnergyResist" Width="*" />
+                            <xcdg:Column Title="Physical" FieldName="Resistances.Physical" Width="*" />
+                            <xcdg:Column Title="Fire" FieldName="Resistances.Fire" Width="*" />
+                            <xcdg:Column Title="Cold" FieldName="Resistances.Cold" Width="*" />
+                            <xcdg:Column Title="Poison" FieldName="Resistances.Poison" Width="*" />
+                            <xcdg:Column Title="Energy" FieldName="Resistances.Energy" Width="*" />
                         </xcdg:DataGridControl.Columns>
                     </xcdg:DataGridControl>
                     <Label Content="Suit Permutations" HorizontalAlignment="Center" Margin="0,20,0,0" />
-                    <xcdg:DataGridControl ItemsSource="{Binding Path=SuitPermutations}" AutoCreateColumns="False" MaxHeight="275" ReadOnly="True">
+                    <xcdg:DataGridControl ItemsSource="{Binding Path=SuitPermutations}" AutoCreateColumns="False" MaxHeight="275" ReadOnly="True" >
                         <xcdg:DataGridControl.Columns>
                             <xcdg:Column Title="Lost Resists" FieldName="LostResistancePoints" Width="*" />
                             <xcdg:Column Title="Imbues" FieldName="NumberOfImbues" Width="*" />
-                            <xcdg:Column Title="Physical" FieldName="TotalResistances.PhysicalResist" Width="*" />
-                            <xcdg:Column Title="Fire" FieldName="TotalResistances.FireResist" Width="*" />
-                            <xcdg:Column Title="Cold" FieldName="TotalResistances.ColdResist" Width="*" />
-                            <xcdg:Column Title="Poison" FieldName="TotalResistances.PoisonResist" Width="*" />
-                            <xcdg:Column Title="Energy" FieldName="TotalResistances.EnergyResist" Width="*" />
+                            <xcdg:Column Title="Physical" FieldName="TotalResistances.Physical" Width="*" />
+                            <xcdg:Column Title="Fire" FieldName="TotalResistances.Fire" Width="*" />
+                            <xcdg:Column Title="Cold" FieldName="TotalResistances.Cold" Width="*" />
+                            <xcdg:Column Title="Poison" FieldName="TotalResistances.Poison" Width="*" />
+                            <xcdg:Column Title="Energy" FieldName="TotalResistances.Energy" Width="*" />
                         </xcdg:DataGridControl.Columns>
+                        <xcdg:DataGridControl.View>
+                            <xcdg:TableflowView ShowRowSelectorPane="False">
+                            </xcdg:TableflowView>
+                        </xcdg:DataGridControl.View>
                     </xcdg:DataGridControl>
                     <StackPanel />
                 </StackPanel>

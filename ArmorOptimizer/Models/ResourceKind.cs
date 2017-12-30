@@ -1,8 +1,10 @@
-﻿namespace ArmorOptimizer.Models
+﻿using ArmorOptimizer.EntityFramework;
+
+namespace ArmorOptimizer.Models
 {
     public class ResourceKind
     {
-        public Resistances BaseResistances { get; set; }
+        public ResistConfiguration BaseResistances { get; set; }
         public string Name { get; set; }
     }
 }

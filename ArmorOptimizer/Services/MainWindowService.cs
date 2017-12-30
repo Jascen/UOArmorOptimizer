@@ -1,8 +1,9 @@
-﻿using ArmorOptimizer.Models;
+﻿using ArmorOptimizer.EntityFramework;
 using ArmorOptimizer.ViewModels;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
+using Resource = ArmorOptimizer.Models.Resource;
 
 namespace ArmorOptimizer.Services
 {
@@ -35,63 +36,63 @@ namespace ArmorOptimizer.Services
             if (!CanApplyModifiers()) throw new InvalidOperationException("Cannot bypass guard.");
 
             var baseResistances = Model.SelectedSuit.TotalResistances;
-            var buffedResistances = new Resistances
+            var buffedResistances = new ResistConfiguration
             {
-                PhysicalResist = baseResistances.PhysicalResist,
-                FireResist = baseResistances.FireResist,
-                ColdResist = baseResistances.ColdResist,
-                PoisonResist = baseResistances.PoisonResist,
-                EnergyResist = baseResistances.EnergyResist,
+                Physical = baseResistances.Physical,
+                Fire = baseResistances.Fire,
+                Cold = baseResistances.Cold,
+                Poison = baseResistances.Poison,
+                Energy = baseResistances.Energy,
             };
 
             if (Model.IsVampiricForm)
             {
-                buffedResistances.FireResist -= 25;
+                buffedResistances.Fire -= 25;
             }
             else if (Model.IsWraithForm)
             {
-                buffedResistances.PhysicalResist += 15;
-                buffedResistances.FireResist -= 5;
-                buffedResistances.EnergyResist -= 5;
+                buffedResistances.Physical += 15;
+                buffedResistances.Fire -= 5;
+                buffedResistances.Energy -= 5;
             }
 
             if (Model.HasCorpseSkin)
             {
-                buffedResistances.PhysicalResist += 10;
-                buffedResistances.FireResist -= 15;
-                buffedResistances.ColdResist += 10;
-                buffedResistances.PoisonResist -= 15;
+                buffedResistances.Physical += 10;
+                buffedResistances.Fire -= 15;
+                buffedResistances.Cold += 10;
+                buffedResistances.Poison -= 15;
             }
 
             if (Model.HasMagicReflection)
             {
-                buffedResistances.PhysicalResist -= 20;
-                buffedResistances.FireResist += 10;
-                buffedResistances.ColdResist += 10;
-                buffedResistances.PoisonResist += 10;
-                buffedResistances.EnergyResist += 10;
+                buffedResistances.Physical -= 20;
+                buffedResistances.Fire += 10;
+                buffedResistances.Cold += 10;
+                buffedResistances.Poison += 10;
+                buffedResistances.Energy += 10;
             }
 
             if (Model.HasProtection)
             {
-                buffedResistances.PhysicalResist -= 15;
+                buffedResistances.Physical -= 15;
             }
 
             if (Model.HasReactiveArmor)
             {
-                buffedResistances.PhysicalResist += 20;
-                buffedResistances.FireResist -= 5;
-                buffedResistances.ColdResist -= 5;
-                buffedResistances.PoisonResist -= 5;
-                buffedResistances.EnergyResist -= 5;
+                buffedResistances.Physical += 20;
+                buffedResistances.Fire -= 5;
+                buffedResistances.Cold -= 5;
+                buffedResistances.Poison -= 5;
+                buffedResistances.Energy -= 5;
             }
 
-            var maxPhysical = Model.HasMagicReflection ? Model.MaxResists.PhysicalResist - 5 : Model.MaxResists.PhysicalResist;
-            buffedResistances.PhysicalResist = buffedResistances.PhysicalResist < 1 ? 0 : Math.Min(buffedResistances.PhysicalResist, maxPhysical);
-            buffedResistances.FireResist = buffedResistances.FireResist < 1 ? 0 : Math.Min(buffedResistances.FireResist, Model.MaxResists.FireResist);
-            buffedResistances.ColdResist = buffedResistances.ColdResist < 1 ? 0 : Math.Min(buffedResistances.ColdResist, Model.MaxResists.ColdResist);
-            buffedResistances.PoisonResist = buffedResistances.PoisonResist < 1 ? 0 : Math.Min(buffedResistances.PoisonResist, Model.MaxResists.PoisonResist);
-            buffedResistances.EnergyResist = buffedResistances.EnergyResist < 1 ? 0 : Math.Min(buffedResistances.EnergyResist, Model.MaxResists.EnergyResist);
+            var maxPhysical = Model.HasMagicReflection ? Model.MaxResists.Physical - 5 : Model.MaxResists.Physical;
+            buffedResistances.Physical = buffedResistances.Physical < 1 ? 0 : Math.Min(buffedResistances.Physical, maxPhysical);
+            buffedResistances.Fire = buffedResistances.Fire < 1 ? 0 : Math.Min(buffedResistances.Fire, Model.MaxResists.Fire);
+            buffedResistances.Cold = buffedResistances.Cold < 1 ? 0 : Math.Min(buffedResistances.Cold, Model.MaxResists.Cold);
+            buffedResistances.Poison = buffedResistances.Poison < 1 ? 0 : Math.Min(buffedResistances.Poison, Model.MaxResists.Poison);
+            buffedResistances.Energy = buffedResistances.Energy < 1 ? 0 : Math.Min(buffedResistances.Energy, Model.MaxResists.Energy);
             Model.BuffedResistances = buffedResistances;
         }
 

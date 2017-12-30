@@ -1,6 +1,6 @@
 ﻿namespace ArmorOptimizer.Enums
 {
-    public enum SlotType
+    public enum SlotTypes
     {
         Unknown = 0,
         Helm = 1,
