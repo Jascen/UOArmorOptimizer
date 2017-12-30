@@ -1,29 +1,21 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ArmorOptimizer.EntityFramework
 {
     public partial class Item
     {
         public long Id { get; set; }
-        [Required]
-        [Column(TypeName = "text")]
         public string UoId { get; set; }
-        [Column(TypeName = "bigint")]
-        public long ItemTypeId { get; set; }
-        [Column(TypeName = "bigint")]
-        public long Color { get; set; }
-        [Column(TypeName = "bigint")]
-        public long BaseResistId { get; set; }
-        [Column(TypeName = "bigint")]
+        public long ArmorTypeId { get; set; }
+        public long ResourceId { get; set; }
         public long PhysicalResist { get; set; }
-        [Column(TypeName = "bigint")]
         public long FireResist { get; set; }
-        [Column(TypeName = "bigint")]
         public long ColdResist { get; set; }
-        [Column(TypeName = "bigint")]
         public long PoisonResist { get; set; }
-        [Column(TypeName = "bigint")]
         public long EnergyResist { get; set; }
+
+        public ArmorType ArmorType { get; set; }
+        public Resource Resource { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using ArmorOptimizer.Models;
+﻿using ArmorOptimizer.EntityFramework;
 using System.Collections.Generic;
 
 namespace ArmorOptimizer.Services
@@ -7,7 +7,7 @@ namespace ArmorOptimizer.Services
     {
         public const string Database = @"ArmorOptimizer.db";
 
-        public void AddItemType(ItemType itemType)
+        public void AddItemType(ArmorType armorType)
         {
         }
 
@@ -15,9 +15,9 @@ namespace ArmorOptimizer.Services
         {
         }
 
-        public IEnumerable<ItemType> FindAllItemTypes()
+        public IEnumerable<ArmorType> FindAllArmorTypes()
         {
-            return new List<ItemType>();
+            return new List<ArmorType>();
         }
 
         public IEnumerable<Resource> FindAllResources()

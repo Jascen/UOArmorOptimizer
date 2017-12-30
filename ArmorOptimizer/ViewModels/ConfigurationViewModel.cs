@@ -1,4 +1,4 @@
-﻿using ArmorOptimizer.Models;
+﻿using ArmorOptimizer.EntityFramework;
 using ArmorOptimizer.Services;
 using Prism.Commands;
 using System;
@@ -13,28 +13,27 @@ namespace ArmorOptimizer.ViewModels
         public ConfigurationViewModel()
         {
             _databaseService = new DatabaseService();
-            AddItemTypeCommand = new DelegateCommand(AddItemType, CanAddItemType);
-            FindItemTypesCommand = new DelegateCommand(FindItemTypes, CanFindItemType);
+            AddItemTypeCommand = new DelegateCommand(AddArmorType, CanAddArmorType);
+            FindItemTypesCommand = new DelegateCommand(FindArmorTypes, CanFindArmorTypes);
             AddResourcesCommand = new DelegateCommand(AddResource, CanAddResource);
             FindResourcesCommand = new DelegateCommand(FindResources, CanFindResources);
         }
 
         public DelegateCommand AddItemTypeCommand { get; }
         public DelegateCommand AddResourcesCommand { get; }
+        public IEnumerable<ArmorType> ArmorTypes { get; protected set; }
+        public ArmorType ArmorTypeToAdd { get; set; }
         public DelegateCommand FindItemTypesCommand { get; }
         public DelegateCommand FindResourcesCommand { get; }
-
-        public IEnumerable<ItemType> ItemTypes { get; protected set; }
-        public ItemType ItemTypeToAdd { get; set; }
         public IEnumerable<Resource> Resources { get; protected set; }
         public Resource ResourceToAdd { get; set; }
 
-        protected virtual void AddItemType()
+        protected virtual void AddArmorType()
         {
-            if (!CanAddItemType()) throw new InvalidOperationException("Cannot bypass guard.");
+            if (!CanAddArmorType()) throw new InvalidOperationException("Cannot bypass guard.");
 
-            _databaseService.AddItemType(ItemTypeToAdd);
-            ItemTypeToAdd = new ItemType();
+            _databaseService.AddItemType(ArmorTypeToAdd);
+            ArmorTypeToAdd = new ArmorType();
         }
 
         protected virtual void AddResource()
@@ -45,7 +44,7 @@ namespace ArmorOptimizer.ViewModels
             ResourceToAdd = new Resource();
         }
 
-        protected virtual bool CanAddItemType()
+        protected virtual bool CanAddArmorType()
         {
             return true;
         }
@@ -55,7 +54,7 @@ namespace ArmorOptimizer.ViewModels
             return true;
         }
 
-        protected virtual bool CanFindItemType()
+        protected virtual bool CanFindArmorTypes()
         {
             return true;
         }
@@ -65,11 +64,11 @@ namespace ArmorOptimizer.ViewModels
             return true;
         }
 
-        protected virtual void FindItemTypes()
+        protected virtual void FindArmorTypes()
         {
-            if (!CanFindItemType()) throw new InvalidOperationException("Cannot bypass guard.");
+            if (!CanFindArmorTypes()) throw new InvalidOperationException("Cannot bypass guard.");
 
-            ItemTypes = _databaseService.FindAllItemTypes();
+            ArmorTypes = _databaseService.FindAllArmorTypes();
         }
 
         protected virtual void FindResources()

@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArmorOptimizer.Views"
-        xmlns:Models="clr-namespace:ArmorOptimizer.Models" x:Class="ArmorOptimizer.Views.ItemTypeView"
+        xmlns:Models="clr-namespace:ArmorOptimizer.Models"
+        xmlns:entityFramework="clr-namespace:ArmorOptimizer.EntityFramework"
+        x:Class="ArmorOptimizer.Views.ItemTypeView"
         mc:Ignorable="d"
         Title="Add Item Type" Height="285" Width="215">
     <Grid>
         <Grid.DataContext>
-            <Models:ItemType/>
+            <entityFramework:ArmorType/>
         </Grid.DataContext>
         <DockPanel Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
             <StackPanel HorizontalAlignment="Stretch"

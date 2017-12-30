@@ -1,18 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ArmorOptimizer.EntityFramework
 {
     public partial class ArmorType
     {
+        public ArmorType()
+        {
+            Item = new HashSet<Item>();
+        }
+
         public long Id { get; set; }
-        [Required]
-        [Column(TypeName = "text")]
         public string Name { get; set; }
-        [Required]
-        [Column(TypeName = "text")]
         public string ItemType { get; set; }
-        [Column(TypeName = "bigint")]
         public long Slot { get; set; }
+        public long BaseResistId { get; set; }
+        public long BaseResourceKindId { get; set; }
+
+        public ResistConfiguration BaseResist { get; set; }
+        public ResourceKind BaseResourceKind { get; set; }
+        public ICollection<Item> Item { get; set; }
     }
 }

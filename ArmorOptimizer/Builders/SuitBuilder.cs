@@ -8,65 +8,65 @@ namespace ArmorOptimizer.Builders
 {
     public class SuitBuilder
     {
-        protected ArmorThing Arms;
+        protected Item Arms;
 
-        protected ArmorThing Chest;
+        protected Item Chest;
 
-        protected ArmorThing Gloves;
+        protected Item Gloves;
 
-        protected ArmorThing Helm;
+        protected Item Helm;
 
-        protected ArmorThing Legs;
+        protected Item Legs;
 
-        protected ArmorThing Misc;
+        protected Item Misc;
 
         protected Suit Suit;
 
-        public SuitBuilder AddArms(ArmorThing armorThing)
+        public SuitBuilder AddArms(Item item)
         {
-            if (armorThing.SlotType != SlotTypes.Arms) throw new ArgumentException("Only Arms may be assigned to this Property.");
+            if ((SlotTypes)item.ArmorType.Slot != SlotTypes.Arms) throw new ArgumentException("Only Arms may be assigned to this Property.");
 
-            Arms = armorThing;
+            Arms = item;
             return this;
         }
 
-        public SuitBuilder AddChest(ArmorThing armorThing)
+        public SuitBuilder AddChest(Item item)
         {
-            if (armorThing.SlotType != SlotTypes.Chest) throw new ArgumentException("Only Arms may be assigned to this Property.");
+            if ((SlotTypes)item.ArmorType.Slot != SlotTypes.Chest) throw new ArgumentException("Only Arms may be assigned to this Property.");
 
-            Chest = armorThing;
+            Chest = item;
             return this;
         }
 
-        public SuitBuilder AddGloves(ArmorThing armorThing)
+        public SuitBuilder AddGloves(Item item)
         {
-            if (armorThing.SlotType != SlotTypes.Gloves) throw new ArgumentException("Only Arms may be assigned to this Property.");
+            if ((SlotTypes)item.ArmorType.Slot != SlotTypes.Gloves) throw new ArgumentException("Only Arms may be assigned to this Property.");
 
-            Gloves = armorThing;
+            Gloves = item;
             return this;
         }
 
-        public SuitBuilder AddHelm(ArmorThing armorThing)
+        public SuitBuilder AddHelm(Item item)
         {
-            if (armorThing.SlotType != SlotTypes.Helm) throw new ArgumentException("Only Arms may be assigned to this Property.");
+            if ((SlotTypes)item.ArmorType.Slot != SlotTypes.Helm) throw new ArgumentException("Only Arms may be assigned to this Property.");
 
-            Helm = armorThing;
+            Helm = item;
             return this;
         }
 
-        public SuitBuilder AddLegs(ArmorThing armorThing)
+        public SuitBuilder AddLegs(Item item)
         {
-            if (armorThing.SlotType != SlotTypes.Legs) throw new ArgumentException("Only Arms may be assigned to this Property.");
+            if ((SlotTypes)item.ArmorType.Slot != SlotTypes.Legs) throw new ArgumentException("Only Arms may be assigned to this Property.");
 
-            Legs = armorThing;
+            Legs = item;
             return this;
         }
 
-        public SuitBuilder AddMisc(ArmorThing armorThing)
+        public SuitBuilder AddMisc(Item item)
         {
-            if (armorThing.SlotType != SlotTypes.Misc) throw new ArgumentException("Only Arms may be assigned to this Property.");
+            if ((SlotTypes)item.ArmorType.Slot != SlotTypes.Misc) throw new ArgumentException("Only Arms may be assigned to this Property.");
 
-            Misc = armorThing;
+            Misc = item;
             return this;
         }
 
@@ -75,7 +75,7 @@ namespace ArmorOptimizer.Builders
             Suit = new Suit
             {
                 TotalResistances = new ResistConfiguration(),
-                SuitPieces = new List<ArmorThing>(),
+                SuitPieces = new List<Item>(),
             };
             AddToSuit(Helm);
             AddToSuit(Chest);
@@ -87,16 +87,16 @@ namespace ArmorOptimizer.Builders
             return Suit;
         }
 
-        protected void AddToSuit(ArmorThing armorThing)
+        protected void AddToSuit(Item item)
         {
-            if (armorThing == null) return;
+            if (item == null) return;
 
-            Suit.TotalResistances.Physical += armorThing.Resistances.Physical;
-            Suit.TotalResistances.Fire += armorThing.Resistances.Fire;
-            Suit.TotalResistances.Cold += armorThing.Resistances.Cold;
-            Suit.TotalResistances.Poison += armorThing.Resistances.Poison;
-            Suit.TotalResistances.Energy += armorThing.Resistances.Energy;
-            Suit.SuitPieces.Add(armorThing);
+            Suit.TotalResistances.Physical += item.PhysicalResist;
+            Suit.TotalResistances.Fire += item.FireResist;
+            Suit.TotalResistances.Cold += item.ColdResist;
+            Suit.TotalResistances.Poison += item.PoisonResist;
+            Suit.TotalResistances.Energy += item.EnergyResist;
+            Suit.SuitPieces.Add(item);
         }
     }
 }

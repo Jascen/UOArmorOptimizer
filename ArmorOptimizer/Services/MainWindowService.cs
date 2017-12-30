@@ -3,7 +3,6 @@ using ArmorOptimizer.ViewModels;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
-using Resource = ArmorOptimizer.Models.Resource;
 
 namespace ArmorOptimizer.Services
 {

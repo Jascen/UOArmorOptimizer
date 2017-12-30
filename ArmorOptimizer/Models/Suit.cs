@@ -7,7 +7,7 @@ namespace ArmorOptimizer.Models
     {
         public int LostResistancePoints { get; set; }
         public int NumberOfImbues { get; set; }
-        public List<ArmorThing> SuitPieces { get; set; }
+        public List<Item> SuitPieces { get; set; }
         public ResistConfiguration TotalResistances { get; set; }
     }
 }

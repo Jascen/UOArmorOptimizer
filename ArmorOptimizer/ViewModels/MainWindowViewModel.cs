@@ -7,7 +7,6 @@ using ArmorOptimizer.Services;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Resource = ArmorOptimizer.Models.Resource;
 
 namespace ArmorOptimizer.ViewModels
 {
@@ -30,11 +29,11 @@ namespace ArmorOptimizer.ViewModels
                 Poison = 14,
                 Energy = 15,
             };
-            suitBuilder.AddHelm(new ArmorThing { SlotType = SlotTypes.Helm, Resistances = sampleResists, Resource = new Resource { Name = "Verite" } });
-            suitBuilder.AddChest(new ArmorThing { SlotType = SlotTypes.Chest, Resistances = sampleResists, Resource = new Resource { Name = "Verite" } });
-            suitBuilder.AddArms(new ArmorThing { SlotType = SlotTypes.Arms, Resistances = sampleResists, Resource = new Resource { Name = "Verite" } });
-            suitBuilder.AddGloves(new ArmorThing { SlotType = SlotTypes.Gloves, Resistances = sampleResists, Resource = new Resource { Name = "Barbed" } });
-            suitBuilder.AddLegs(new ArmorThing { SlotType = SlotTypes.Legs, Resistances = sampleResists, Resource = new Resource { Name = "Verite" } });
+            suitBuilder.AddHelm(CheaterMethod(SlotTypes.Helm, sampleResists, "Verite"));
+            suitBuilder.AddChest(CheaterMethod(SlotTypes.Chest, sampleResists, "Verite"));
+            suitBuilder.AddArms(CheaterMethod(SlotTypes.Arms, sampleResists, "Verite"));
+            suitBuilder.AddGloves(CheaterMethod(SlotTypes.Gloves, sampleResists, "Barbed"));
+            suitBuilder.AddLegs(CheaterMethod(SlotTypes.Legs, sampleResists, "Verite"));
             var suitPermutations = new List<Suit>();
             for (var i = 0; i < 100; i++)
             {
@@ -123,6 +122,24 @@ namespace ArmorOptimizer.ViewModels
         }
 
         public ResistConfiguration TargetResists { get; set; }
+
+        protected Item CheaterMethod(SlotTypes slot, ResistConfiguration resists, string resourceName)
+        {
+            return new Item
+            {
+                UoId = "XXXXXX",
+                ArmorType = new ArmorType
+                {
+                    Slot = (long)slot
+                },
+                PhysicalResist = resists.Physical,
+                FireResist = resists.Fire,
+                ColdResist = resists.Cold,
+                PoisonResist = resists.Poison,
+                EnergyResist = resists.Energy,
+                Resource = new Resource { Name = resourceName }
+            };
+        }
 
         #region INotifyPropertyChanged
 

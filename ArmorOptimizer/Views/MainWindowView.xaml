@@ -87,24 +87,24 @@
                             <xcdg:TableflowView UseDefaultHeadersFooters="False"  ShowRowSelectorPane="False">
                                 <xcdg:TableflowView.FixedHeaders>
                                     <DataTemplate>
-                                        <xcdg:ColumnManagerRow AllowSort="False" AllowColumnReorder="False" BorderThickness="0"/>
+                                        <xcdg:ColumnManagerRow AllowSort="False" AllowColumnReorder="False" BorderThickness="0" />
                                     </DataTemplate>
                                 </xcdg:TableflowView.FixedHeaders>
                             </xcdg:TableflowView>
                         </xcdg:DataGridControl.View>
                         <xcdg:DataGridControl.Columns>
-                            <xcdg:Column Title="Id" FieldName="Id" Width="*" />
-                            <xcdg:Column Title="Slot" FieldName="SlotType" Width="*" />
+                            <xcdg:Column Title="Id" FieldName="UoId" Width="*" />
+                            <xcdg:Column Title="Slot" FieldName="ArmorType.SlotType" Width="*" />
                             <xcdg:Column Title="Resource" FieldName="Resource.Name" Width="*" />
-                            <xcdg:Column Title="Physical" FieldName="Resistances.Physical" Width="*" />
-                            <xcdg:Column Title="Fire" FieldName="Resistances.Fire" Width="*" />
-                            <xcdg:Column Title="Cold" FieldName="Resistances.Cold" Width="*" />
-                            <xcdg:Column Title="Poison" FieldName="Resistances.Poison" Width="*" />
-                            <xcdg:Column Title="Energy" FieldName="Resistances.Energy" Width="*" />
+                            <xcdg:Column Title="Physical" FieldName="PhysicalResist" Width="*" />
+                            <xcdg:Column Title="Fire" FieldName="FireResist" Width="*" />
+                            <xcdg:Column Title="Cold" FieldName="ColdResist" Width="*" />
+                            <xcdg:Column Title="Poison" FieldName="PoisonResist" Width="*" />
+                            <xcdg:Column Title="Energy" FieldName="EnergyResist" Width="*" />
                         </xcdg:DataGridControl.Columns>
                     </xcdg:DataGridControl>
                     <Label Content="Suit Permutations" HorizontalAlignment="Center" Margin="0,20,0,0" />
-                    <xcdg:DataGridControl ItemsSource="{Binding Path=SuitPermutations}" AutoCreateColumns="False" MaxHeight="275" ReadOnly="True" >
+                    <xcdg:DataGridControl ItemsSource="{Binding Path=SuitPermutations}" AutoCreateColumns="False" MaxHeight="275" ReadOnly="True">
                         <xcdg:DataGridControl.Columns>
                             <xcdg:Column Title="Lost Resists" FieldName="LostResistancePoints" Width="*" />
                             <xcdg:Column Title="Imbues" FieldName="NumberOfImbues" Width="*" />

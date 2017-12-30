@@ -45,6 +45,9 @@
     <Reference Include="Microsoft.EntityFrameworkCore, Version=2.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.2.0.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Design, Version=2.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.Design.2.0.1\lib\net461\Microsoft.EntityFrameworkCore.Design.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.EntityFrameworkCore.Relational, Version=2.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.Relational.2.0.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
     </Reference>
@@ -149,18 +152,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Attributes\ColumnNumber.cs" />
+    <Compile Include="EntityFramework\ArmorOptimizerContext.cs" />
     <Compile Include="EntityFramework\ArmorType.cs" />
-    <Compile Include="EntityFramework\ArmorTypeResource.cs" />
-    <Compile Include="EntityFramework\DatabaseContext.cs" />
     <Compile Include="EntityFramework\Item.cs" />
     <Compile Include="EntityFramework\ResistConfiguration.cs" />
     <Compile Include="EntityFramework\Resource.cs" />
     <Compile Include="Builders\SuitBuilder.cs" />
+    <Compile Include="EntityFramework\ResourceKind.cs" />
     <Compile Include="Enums\SlotTypes.cs" />
+    <Compile Include="Models\ArmorType.cs" />
     <Compile Include="Models\Suit.cs" />
-    <Compile Include="Models\ResourceKind.cs" />
-    <Compile Include="Models\ItemType.cs" />
-    <Compile Include="Models\Resource.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\ImportingService.cs" />
@@ -171,7 +172,7 @@
     <Compile Include="Views\ResourceView.xaml.cs">
       <DependentUpon>ResourceView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\ItemTypeView.xaml">
+    <Page Include="Views\ArmorTypeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -187,8 +188,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\ItemTypeView.xaml.cs">
-      <DependentUpon>ItemTypeView.xaml</DependentUpon>
+    <Compile Include="Views\ArmorTypeView.xaml.cs">
+      <DependentUpon>ArmorTypeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
@@ -200,7 +201,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ArmorThing.cs" />
     <Compile Include="ViewModels\ConfigurationViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -220,16 +220,19 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="build.ico" />
     <Resource Include="cog.ico" />
@@ -237,6 +240,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="swordandshield.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.7\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.7\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets')" />
