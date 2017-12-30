@@ -1,19 +1,19 @@
-﻿using ArmorOptimizer.Builders;
+﻿using ArmorOptimizer.Annotations;
+using ArmorOptimizer.Builders;
 using ArmorOptimizer.Enums;
 using ArmorOptimizer.Models;
 using ArmorOptimizer.Services;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using ArmorOptimizer.Annotations;
 
 namespace ArmorOptimizer.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private Resistances _buffedResistances;
-        private IEnumerable<Suit> _suitPermutations;
         private Suit _selectedSuit;
+        private IEnumerable<Suit> _suitPermutations;
 
         public MainWindowViewModel()
         {
@@ -92,6 +92,8 @@ namespace ArmorOptimizer.ViewModels
         public bool IsVampiricForm { get; set; }
         public bool IsWraithForm { get; set; }
 
+        public Resistances MaxResists { get; set; }
+
         public Suit SelectedSuit
         {
             get => _selectedSuit;
@@ -119,7 +121,6 @@ namespace ArmorOptimizer.ViewModels
         }
 
         public Resistances TargetResists { get; set; }
-        public Resistances MaxResists { get; set; }
 
         #region INotifyPropertyChanged
 

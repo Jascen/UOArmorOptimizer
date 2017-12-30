@@ -4,26 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArmorOptimizer"
-        xmlns:Models="clr-namespace:ArmorOptimizer.ViewModels"
-    xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
-    xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit" x:Class="ArmorOptimizer.MainWindow"
+        xmlns:models="clr-namespace:ArmorOptimizer.ViewModels"
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+        x:Class="ArmorOptimizer.Views.MainWindow"
         mc:Ignorable="d"
-        Title="Tsai's Ultima Online Armor Optimizer" MinHeight="530">
-    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+        Title="Tsai's Ultima Online Armor Optimizer" Width="800" Height="600">
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
         <Grid.DataContext>
-            <Models:MainWindowViewModel />
+            <models:MainWindowViewModel />
         </Grid.DataContext>
-        <StackPanel Margin="10" Orientation="Vertical">
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
-                <Button Width="24" Margin="0,0,0,10">
-                    <DockPanel>
-                        <Image Source="C:\Users\Devin\source\repos\ArmorOptimizer\lib\cog.ico" />
-                    </DockPanel>
-                </Button>
-            </StackPanel>
+        <StackPanel Margin="10" Orientation="Vertical" HorizontalAlignment="Left">
             <DockPanel VerticalAlignment="Top" HorizontalAlignment="Left">
+                <DockPanel DockPanel.Dock="Top">
+                    <Button Width="36" Height="36" HorizontalAlignment="Left">
+                        <Image Source="../cog.ico" />
+                    </Button>
+                    <Button Width="36" Height="36" Margin="120,0,0,0" HorizontalAlignment="Right">
+                        <Image Source="../build.ico" />
+                    </Button>
+                    <Button Width="36" Height="36" Margin="15,0,0,0" HorizontalAlignment="Left">
+                        <Image Source="../inspector.ico" />
+                    </Button>
+                </DockPanel>
                 <StackPanel Margin="0,0,10,0" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Button Content="Optimize" Padding="10" />
                     <DockPanel>
                         <StackPanel VerticalAlignment="Top">
                             <Label Content="Resistances" />
@@ -61,22 +65,20 @@
                     <DockPanel VerticalAlignment="Bottom" Margin="0,10,0,0">
                         <GroupBox Header="Modifiers" DockPanel.Dock="Top">
                             <StackPanel>
-                                <CheckBox Content="Corpse Skin" IsChecked="{Binding Path=HasCorpseSkin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                <CheckBox Content="Magic Reflection" IsChecked="{Binding Path=HasMagicReflection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                <CheckBox Content="Protection" IsChecked="{Binding Path=HasProtection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                <CheckBox Content="Reactive Armor" IsChecked="{Binding Path=HasReactiveArmor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <CheckBox Content="Corpse Skin" IsChecked="{Binding Path=HasCorpseSkin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox Content="Magic Reflection" IsChecked="{Binding Path=HasMagicReflection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox Content="Protection" IsChecked="{Binding Path=HasProtection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <CheckBox Content="Reactive Armor" IsChecked="{Binding Path=HasReactiveArmor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Header="Form" VerticalAlignment="Bottom">
                             <StackPanel>
-                                <RadioButton Content="None" IsChecked="{Binding Path=IsBaseForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                <RadioButton Content="Vampiric Embrace" IsChecked="{Binding Path=IsVampiricForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                <RadioButton Content="Wraith Form" IsChecked="{Binding Path=IsWraithForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <RadioButton Content="None" IsChecked="{Binding Path=IsBaseForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <RadioButton Content="Vampiric Embrace" IsChecked="{Binding Path=IsVampiricForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <RadioButton Content="Wraith Form" IsChecked="{Binding Path=IsWraithForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                         </GroupBox>
                     </DockPanel>
-                    <Button Content="Export Suit" Margin="0,20,0,0" />
-                    <Button Content="Export Items" VerticalAlignment="Bottom" Margin="0,5,0,0" />
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Label Content="Selected Suit" HorizontalAlignment="Center" />

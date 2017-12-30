@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ArmorOptimizer
+namespace ArmorOptimizer.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

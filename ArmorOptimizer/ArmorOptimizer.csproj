@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>swordandshield.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Data.Sqlite, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Sqlite.Core.2.0.0\lib\netstandard2.0\Microsoft.Data.Sqlite.dll</HintPath>
@@ -203,6 +206,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="EntityFramework\Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="build.ico" />
+    <Resource Include="cog.ico" />
+    <Resource Include="inspector.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="swordandshield.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -19,6 +19,8 @@ namespace ArmorOptimizer.Builders
 
         protected ArmorThing Misc;
 
+        protected Suit Suit;
+
         public SuitBuilder AddArms(ArmorThing armorThing)
         {
             if (armorThing.SlotType != SlotType.Arms) throw new ArgumentException("Only Arms may be assigned to this Property.");
@@ -66,8 +68,6 @@ namespace ArmorOptimizer.Builders
             Misc = armorThing;
             return this;
         }
-
-        protected Suit Suit;
 
         public Suit Build()
         {
