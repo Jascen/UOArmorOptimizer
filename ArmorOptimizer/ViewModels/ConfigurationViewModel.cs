@@ -14,38 +14,54 @@ namespace ArmorOptimizer.ViewModels
         public ConfigurationViewModel()
         {
             _databaseService = new DatabaseService();
-            AddItemTypeCommand = new DelegateCommand(AddArmorType, CanAddArmorType);
+            AddArmorTypeCommand = new DelegateCommand(async () => await AddArmorTypeAsync(), CanAddArmorType);
+            AddItemCommand = new DelegateCommand(async () => await AddItemAsync(), CanAddItem);
             FindItemTypesCommand = new DelegateCommand(async () => await FindArmorTypesAsync(), CanFindArmorTypes);
-            AddResourcesCommand = new DelegateCommand(AddResource, CanAddResource);
+            AddResourcesCommand = new DelegateCommand(async () => await AddResourceAsync(), CanAddResource);
             FindResourcesCommand = new DelegateCommand(async () => await FindResourcesAsync(), CanFindResources);
         }
 
-        public DelegateCommand AddItemTypeCommand { get; }
+        public DelegateCommand AddArmorTypeCommand { get; }
+        public DelegateCommand AddItemCommand { get; }
         public DelegateCommand AddResourcesCommand { get; }
         public IEnumerable<ArmorType> ArmorTypes { get; protected set; }
         public ArmorType ArmorTypeToAdd { get; set; }
         public DelegateCommand FindItemTypesCommand { get; }
         public DelegateCommand FindResourcesCommand { get; }
+        public Item ItemToAdd { get; set; }
         public IEnumerable<Resource> Resources { get; protected set; }
         public Resource ResourceToAdd { get; set; }
 
-        protected virtual void AddArmorType()
+        protected virtual async Task AddArmorTypeAsync()
         {
             if (!CanAddArmorType()) throw new InvalidOperationException("Cannot bypass guard.");
 
-            _databaseService.AddItemType(ArmorTypeToAdd);
+            await _databaseService.AddArmorTypeAsync(ArmorTypeToAdd);
             ArmorTypeToAdd = new ArmorType();
         }
 
-        protected virtual void AddResource()
+        protected virtual async Task AddItemAsync()
+        {
+            if (!CanAddItem()) throw new InvalidOperationException("Cannot bypass guard.");
+
+            await _databaseService.AddItemAsync(ItemToAdd);
+            ItemToAdd = new Item();
+        }
+
+        protected virtual async Task AddResourceAsync()
         {
             if (!CanAddResource()) throw new InvalidOperationException("Cannot bypass guard.");
 
-            _databaseService.AddResource(ResourceToAdd);
+            await _databaseService.AddResourceAsync(ResourceToAdd);
             ResourceToAdd = new Resource();
         }
 
         protected virtual bool CanAddArmorType()
+        {
+            return true;
+        }
+
+        protected virtual bool CanAddItem()
         {
             return true;
         }

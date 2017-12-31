@@ -10,12 +10,31 @@ namespace ArmorOptimizer.Services
     {
         public const string Database = @"ArmorOptimizer.db";
 
-        public void AddItemType(ArmorType armorType)
+        public async Task AddItemAsync(Item item)
         {
+            using (var context = new ArmorOptimizerContext())
+            {
+                await context.Item.AddAsync(item);
+                await context.SaveChangesAsync();
+            }
         }
 
-        public void AddResource(Resource resource)
+        public async Task AddArmorTypeAsync(ArmorType armorType)
         {
+            using (var context = new ArmorOptimizerContext())
+            {
+                await context.ArmorType.AddAsync(armorType);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddResourceAsync(Resource resource)
+        {
+            using (var context = new ArmorOptimizerContext())
+            {
+                await context.Resource.AddAsync(resource);
+                await context.SaveChangesAsync();
+            }
         }
 
         public Task<List<ArmorType>> FindAllArmorTypesAsync()

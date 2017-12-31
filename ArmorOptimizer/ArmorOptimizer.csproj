@@ -172,17 +172,17 @@
     <Compile Include="Services\MainWindowService.cs" />
     <Compile Include="Services\OptimizingService.cs" />
     <Compile Include="Services\ResistanceEvaluatorService.cs" />
-    <Compile Include="Views\ItemView.xaml.cs">
-      <DependentUpon>ItemView.xaml</DependentUpon>
+    <Compile Include="Views\EditItemView.xaml.cs">
+      <DependentUpon>EditItemView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ResourceView.xaml.cs">
-      <DependentUpon>ResourceView.xaml</DependentUpon>
+    <Compile Include="Views\EditResourceView.xaml.cs">
+      <DependentUpon>EditResourceView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\ArmorTypeView.xaml">
+    <Page Include="Views\EditArmorTypeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ItemView.xaml">
+    <Page Include="Views\EditItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -194,14 +194,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\ArmorTypeView.xaml.cs">
-      <DependentUpon>ArmorTypeView.xaml</DependentUpon>
+    <Compile Include="Views\EditArmorTypeView.xaml.cs">
+      <DependentUpon>EditArmorTypeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ResourceView.xaml">
+    <Page Include="Views\EditResourceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

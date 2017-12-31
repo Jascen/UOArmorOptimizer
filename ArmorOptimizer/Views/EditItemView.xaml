@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ArmorOptimizer.Views"
         mc:Ignorable="d"
-        Title="Add Item" Height="312" Width="230">
+        Title="Edit Item" Height="312" Width="230">
     <Grid>
         <DockPanel Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
             <StackPanel HorizontalAlignment="Stretch"
@@ -34,7 +34,7 @@
                         <TextBox Text="{Binding SelectedArmor.ColdResist}" Padding="4" />
                         <TextBox Text="{Binding SelectedArmor.PoisonResist}" Padding="4" />
                         <TextBox Text="{Binding SelectedArmor.EnergyResist}" Padding="4" />
-                        <Button Content="Add" MinWidth="40"  Margin="12.5"/>
+                        <Button Content="Save" MinWidth="40"  Margin="12.5"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
