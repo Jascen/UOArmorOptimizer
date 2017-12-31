@@ -13,7 +13,7 @@ namespace ArmorOptimizer.EntityFramework
         public long Id { get; set; }
         public string Name { get; set; }
         public string ItemType { get; set; }
-        public long Slot { get; set; }
+        public long SlotId { get; set; }
         public long BaseResistId { get; set; }
         public long BaseResourceKindId { get; set; }
 

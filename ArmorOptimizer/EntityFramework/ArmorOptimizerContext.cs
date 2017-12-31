@@ -35,7 +35,7 @@ namespace ArmorOptimizer.EntityFramework
 
                 entity.Property(e => e.Name).IsRequired();
 
-                entity.Property(e => e.Slot).HasColumnType("bigint");
+                entity.Property(e => e.SlotId).HasColumnType("bigint");
 
                 entity.HasOne(d => d.BaseResist)
                     .WithMany(p => p.ArmorType)

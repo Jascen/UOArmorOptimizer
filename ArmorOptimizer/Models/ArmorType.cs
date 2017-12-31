@@ -6,8 +6,8 @@ namespace ArmorOptimizer.EntityFramework
     {
         public SlotTypes SlotType
         {
-            get => (SlotTypes)Slot;
-            set => Slot = (long)value;
+            get => (SlotTypes)SlotId;
+            set => SlotId = (long)value;
         }
     }
 }
