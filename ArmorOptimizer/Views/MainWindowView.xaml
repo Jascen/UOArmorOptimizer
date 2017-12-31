@@ -20,7 +20,7 @@
                     <Button Width="36" Height="36" HorizontalAlignment="Left">
                         <Image Source="../cog.ico" />
                     </Button>
-                    <Button Width="36" Height="36" Margin="120,0,0,0" HorizontalAlignment="Right">
+                    <Button Width="36" Height="36" Margin="120,0,0,0" HorizontalAlignment="Right" Command="{Binding Service.OptimizeSuitCommand}">
                         <Image Source="../build.ico" />
                     </Button>
                     <Button Width="36" Height="36" Margin="15,0,0,0" HorizontalAlignment="Left">
@@ -82,7 +82,7 @@
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Label Content="Selected Suit" HorizontalAlignment="Center" />
-                    <xcdg:DataGridControl HorizontalAlignment="Stretch" ItemsSource="{Binding Path=SelectedSuit.SuitPieces}" AutoCreateColumns="False"  MaxHeight="275" ReadOnly="True">
+                    <xcdg:DataGridControl HorizontalAlignment="Stretch" ItemsSource="{Binding Path=SelectedSuit.Items}" AutoCreateColumns="False"  MaxHeight="275" ReadOnly="True">
                         <xcdg:DataGridControl.View>
                             <xcdg:TableflowView UseDefaultHeadersFooters="False"  ShowRowSelectorPane="False">
                                 <xcdg:TableflowView.FixedHeaders>
@@ -104,7 +104,7 @@
                         </xcdg:DataGridControl.Columns>
                     </xcdg:DataGridControl>
                     <Label Content="Suit Permutations" HorizontalAlignment="Center" Margin="0,20,0,0" />
-                    <xcdg:DataGridControl ItemsSource="{Binding Path=SuitPermutations}" AutoCreateColumns="False" MaxHeight="275" ReadOnly="True">
+                    <xcdg:DataGridControl SelectedItem="{Binding SelectedSuit}" ItemsSource="{Binding Path=SuitPermutations}" AutoCreateColumns="False" MaxHeight="275" ReadOnly="True">
                         <xcdg:DataGridControl.Columns>
                             <xcdg:Column Title="Lost Resists" FieldName="LostResistancePoints" Width="*" />
                             <xcdg:Column Title="Imbues" FieldName="NumberOfImbues" Width="*" />

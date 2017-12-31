@@ -9,6 +9,8 @@ namespace ArmorOptimizer.EntityFramework
         public string UoId { get; set; }
         public long ArmorTypeId { get; set; }
         public long ResourceId { get; set; }
+        public long NumberOfImbues { get; set; }
+        public long LostResistancePoints { get; set; }
         public long PhysicalResist { get; set; }
         public long FireResist { get; set; }
         public long ColdResist { get; set; }

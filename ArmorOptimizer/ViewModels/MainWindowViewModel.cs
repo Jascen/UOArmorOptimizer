@@ -1,7 +1,5 @@
 ﻿using ArmorOptimizer.Annotations;
-using ArmorOptimizer.Builders;
 using ArmorOptimizer.EntityFramework;
-using ArmorOptimizer.Enums;
 using ArmorOptimizer.Models;
 using ArmorOptimizer.Services;
 using System.Collections.Generic;
@@ -12,7 +10,7 @@ namespace ArmorOptimizer.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private ResistConfiguration _buffedResistances;
+        private ResistConfiguration _buffedResistances = new ResistConfiguration();
         private Suit _selectedSuit;
         private IEnumerable<Suit> _suitPermutations;
 
@@ -20,41 +18,6 @@ namespace ArmorOptimizer.ViewModels
         {
             Service = new MainWindowService(this);
 
-            var suitBuilder = new SuitBuilder();
-            var sampleResists = new ResistConfiguration
-            {
-                Physical = 11,
-                Fire = 12,
-                Cold = 13,
-                Poison = 14,
-                Energy = 15,
-            };
-            suitBuilder.AddHelm(CheaterMethod(SlotTypes.Helm, sampleResists, "Verite"));
-            suitBuilder.AddChest(CheaterMethod(SlotTypes.Chest, sampleResists, "Verite"));
-            suitBuilder.AddArms(CheaterMethod(SlotTypes.Arms, sampleResists, "Verite"));
-            suitBuilder.AddGloves(CheaterMethod(SlotTypes.Gloves, sampleResists, "Barbed"));
-            suitBuilder.AddLegs(CheaterMethod(SlotTypes.Legs, sampleResists, "Verite"));
-            var suitPermutations = new List<Suit>();
-            for (var i = 0; i < 100; i++)
-            {
-                suitPermutations.Add(new Suit
-                {
-                    LostResistancePoints = i * 2,
-                    NumberOfImbues = i + 1,
-                    TotalResistances = new ResistConfiguration
-                    {
-                        Physical = i + 1,
-                        Fire = i + 2,
-                        Cold = i + 3,
-                        Poison = i + 4,
-                        Energy = i + 5,
-                    }
-                });
-            }
-
-            SuitPermutations = suitPermutations;
-            SelectedSuit = suitBuilder.Build();
-            BuffedResistances = SelectedSuit.TotalResistances;
             TargetResists = new ResistConfiguration
             {
                 Physical = 85,
@@ -72,6 +35,8 @@ namespace ArmorOptimizer.ViewModels
                 Energy = 75,
             };
         }
+
+        public IEnumerable<Item> AllItems { get; set; }
 
         public ResistConfiguration BuffedResistances
         {
@@ -92,7 +57,6 @@ namespace ArmorOptimizer.ViewModels
         public bool IsBaseForm { get; set; } = true;
         public bool IsVampiricForm { get; set; }
         public bool IsWraithForm { get; set; }
-
         public ResistConfiguration MaxResists { get; set; }
 
         public Suit SelectedSuit
@@ -122,24 +86,6 @@ namespace ArmorOptimizer.ViewModels
         }
 
         public ResistConfiguration TargetResists { get; set; }
-
-        protected Item CheaterMethod(SlotTypes slot, ResistConfiguration resists, string resourceName)
-        {
-            return new Item
-            {
-                UoId = "XXXXXX",
-                ArmorType = new ArmorType
-                {
-                    Slot = (long)slot
-                },
-                PhysicalResist = resists.Physical,
-                FireResist = resists.Fire,
-                ColdResist = resists.Cold,
-                PoisonResist = resists.Poison,
-                EnergyResist = resists.Energy,
-                Resource = new Resource { Name = resourceName }
-            };
-        }
 
         #region INotifyPropertyChanged
 

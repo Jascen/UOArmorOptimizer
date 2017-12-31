@@ -60,6 +60,10 @@ namespace ArmorOptimizer.EntityFramework
 
                 entity.Property(e => e.FireResist).HasColumnType("bigint");
 
+                entity.Property(e => e.LostResistancePoints).HasColumnType("bigint");
+
+                entity.Property(e => e.NumberOfImbues).HasColumnType("bigint");
+
                 entity.Property(e => e.PhysicalResist).HasColumnType("bigint");
 
                 entity.Property(e => e.PoisonResist).HasColumnType("bigint");

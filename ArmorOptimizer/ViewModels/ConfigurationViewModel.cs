@@ -3,6 +3,7 @@ using ArmorOptimizer.Services;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ArmorOptimizer.ViewModels
 {
@@ -14,9 +15,9 @@ namespace ArmorOptimizer.ViewModels
         {
             _databaseService = new DatabaseService();
             AddItemTypeCommand = new DelegateCommand(AddArmorType, CanAddArmorType);
-            FindItemTypesCommand = new DelegateCommand(FindArmorTypes, CanFindArmorTypes);
+            FindItemTypesCommand = new DelegateCommand(async () => await FindArmorTypesAsync(), CanFindArmorTypes);
             AddResourcesCommand = new DelegateCommand(AddResource, CanAddResource);
-            FindResourcesCommand = new DelegateCommand(FindResources, CanFindResources);
+            FindResourcesCommand = new DelegateCommand(async () => await FindResourcesAsync(), CanFindResources);
         }
 
         public DelegateCommand AddItemTypeCommand { get; }
@@ -64,18 +65,18 @@ namespace ArmorOptimizer.ViewModels
             return true;
         }
 
-        protected virtual void FindArmorTypes()
+        protected virtual async Task FindArmorTypesAsync()
         {
             if (!CanFindArmorTypes()) throw new InvalidOperationException("Cannot bypass guard.");
 
-            ArmorTypes = _databaseService.FindAllArmorTypes();
+            ArmorTypes = await _databaseService.FindAllArmorTypesAsync();
         }
 
-        protected virtual void FindResources()
+        protected virtual async Task FindResourcesAsync()
         {
             if (!CanFindResources()) throw new InvalidOperationException("Cannot bypass guard.");
 
-            Resources = _databaseService.FindAllResources();
+            Resources = await _databaseService.FindAllResourcesAsync();
         }
     }
 }

@@ -1,17 +1,21 @@
 ﻿using ArmorOptimizer.EntityFramework;
+using ArmorOptimizer.Enums;
+using ArmorOptimizer.Models;
 using ArmorOptimizer.ViewModels;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ArmorOptimizer.Services
 {
     public class MainWindowService
     {
         protected readonly DatabaseService DatabaseService;
-
         protected readonly ImportingService ImportingService;
         protected readonly MainWindowViewModel Model;
+        protected readonly OptimizingService OptimizingService;
 
         public MainWindowService(MainWindowViewModel model)
         {
@@ -20,11 +24,113 @@ namespace ArmorOptimizer.Services
             Model = model;
             DatabaseService = new DatabaseService();
             ImportingService = new ImportingService(DatabaseService);
+            OptimizingService = new OptimizingService(1000);
 
             ImportCommand = new DelegateCommand(ImportItems, CanImportItems);
-            FindResourcesCommand = new DelegateCommand(FindResources, CanFindResources);
+            FindResourcesCommand = new DelegateCommand(async () => await FindResourcesAsync(), CanFindResources);
+            OptimizeSuitCommand = new DelegateCommand(async () => await OptimizeSuitAsync(), CanOptimizeSuit);
             ApplyModifiersCommand = new DelegateCommand(ApplyModifiers, CanApplyModifiers);
         }
+
+        #region Optimizing
+
+        public DelegateCommand OptimizeSuitCommand { get; }
+
+        public bool CanOptimizeSuit()
+        {
+            return true;
+        }
+
+        public async Task OptimizeSuitAsync()
+        {
+            if (Model.AllItems == null)
+            {
+                Model.AllItems = await DatabaseService.FindAllItemsAsync();
+                if (Model.AllItems == null || !Model.AllItems.Any())
+                {
+                    var items = new List<Item>();
+                    var sampleResists = new ResistConfiguration
+                    {
+                        Physical = 11,
+                        Fire = 12,
+                        Cold = 13,
+                        Poison = 14,
+                        Energy = 15,
+                    };
+                    items.Add(CheaterMethod(SlotTypes.Helm, sampleResists, "Verite"));
+                    items.Add(CheaterMethod(SlotTypes.Chest, sampleResists, "Verite"));
+                    items.Add(CheaterMethod(SlotTypes.Arms, sampleResists, "Verite"));
+                    items.Add(CheaterMethod(SlotTypes.Gloves, sampleResists, "Barbed"));
+                    items.Add(CheaterMethod(SlotTypes.Legs, sampleResists, "Verite"));
+                    Model.AllItems = items;
+                }
+            }
+
+            var categorizedItems = new CategorizedItems();
+            foreach (var item in Model.AllItems)
+            {
+                switch (item.ArmorType.SlotType)
+                {
+                    case SlotTypes.Helm:
+                        categorizedItems.Helms.Add(item);
+                        break;
+
+                    case SlotTypes.Chest:
+                        categorizedItems.Chests.Add(item);
+                        break;
+
+                    case SlotTypes.Arms:
+                        categorizedItems.Arms.Add(item);
+                        break;
+
+                    case SlotTypes.Gloves:
+                        categorizedItems.Gloves.Add(item);
+                        break;
+
+                    case SlotTypes.Legs:
+                        categorizedItems.Legs.Add(item);
+                        break;
+
+                    case SlotTypes.Misc:
+                        categorizedItems.Misc.Add(item);
+                        break;
+
+                    case SlotTypes.Unknown:
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            var betterSuit = OptimizingService.OptimizeSuit(Model.TargetResists, categorizedItems, Model.SelectedSuit, out var suitPermutations);
+            if (betterSuit == null) return;
+
+            Model.SelectedSuit = null;
+            Model.SuitPermutations = suitPermutations;
+            if (ApplyModifiersCommand.CanExecute())
+            {
+                ApplyModifiersCommand.Execute();
+            }
+        }
+
+        protected Item CheaterMethod(SlotTypes slot, ResistConfiguration resists, string resourceName)
+        {
+            return new Item
+            {
+                UoId = "XXXXXX",
+                ArmorType = new ArmorType
+                {
+                    SlotId = (long)slot
+                },
+                PhysicalResist = resists.Physical,
+                FireResist = resists.Fire,
+                ColdResist = resists.Cold,
+                PoisonResist = resists.Poison,
+                EnergyResist = resists.Energy,
+                Resource = new Resource { Name = resourceName }
+            };
+        }
+
+        #endregion Optimizing
 
         #region Modifiers
 
@@ -97,7 +203,7 @@ namespace ArmorOptimizer.Services
 
         protected virtual bool CanApplyModifiers()
         {
-            return Model.SelectedSuit != null && Model.MaxResists != null;
+            return Model.MaxResists != null;
         }
 
         #endregion Modifiers
@@ -113,11 +219,11 @@ namespace ArmorOptimizer.Services
             return true;
         }
 
-        protected virtual void FindResources()
+        protected virtual async Task FindResourcesAsync()
         {
             if (!CanFindResources()) throw new InvalidOperationException("Cannot bypass guard.");
 
-            Resources = DatabaseService.FindAllResources();
+            Resources = await DatabaseService.FindAllResourcesAsync();
         }
 
         #endregion Resources
@@ -140,18 +246,5 @@ namespace ArmorOptimizer.Services
         }
 
         #endregion Import Items
-
-        ///// <summary>
-        ///// Open Details Window for the selected item
-        ///// </summary>
-        //public DelegateCommand ViewItemCommand { get; }
-
-        ///// <summary>
-        ///// Open Options Window
-        ///// </summary>
-        //public DelegateCommand ShowOptionsCommand { get; }
-
-        //// Apply bonuses (VE, Wraith, MR/RA/Both)
-        //public DelegateCommand ApplyBonusesCommand { get; }
     }
 }

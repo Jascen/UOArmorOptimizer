@@ -160,12 +160,18 @@
     <Compile Include="Builders\SuitBuilder.cs" />
     <Compile Include="EntityFramework\ResourceKind.cs" />
     <Compile Include="Enums\SlotTypes.cs" />
+    <Compile Include="Extensions\ResistConfigurationExtensions.cs" />
+    <Compile Include="Models\ArmorCandidate.cs" />
     <Compile Include="Models\ArmorType.cs" />
+    <Compile Include="Models\CategorizedItems.cs" />
+    <Compile Include="Models\CandidateInfo.cs" />
     <Compile Include="Models\Suit.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\ImportingService.cs" />
     <Compile Include="Services\MainWindowService.cs" />
+    <Compile Include="Services\OptimizingService.cs" />
+    <Compile Include="Services\ResistanceEvaluatorService.cs" />
     <Compile Include="Views\ItemView.xaml.cs">
       <DependentUpon>ItemView.xaml</DependentUpon>
     </Compile>
