@@ -26,10 +26,10 @@
                     <Button Width="36" Height="36" HorizontalAlignment="Left">
                         <Image Source="../cog.ico" />
                     </Button>
-                    <Button Width="36" Height="36" Margin="120,0,0,0" HorizontalAlignment="Right" Command="{Binding Path=Service.OptimizeSuitCommand}">
+                    <Button Width="36" Height="36" Margin="10,0,0,0" HorizontalAlignment="Right" Command="{Binding Path=Service.OptimizeSuitCommand}">
                         <Image Source="../build.ico" />
                     </Button>
-                    <Button Width="36" Height="36" Margin="15,0,0,0" HorizontalAlignment="Left" Command="{Binding Path=Service.InspectSuitCommand}">
+                    <Button Width="36" Height="36" Margin="10,0,0,0" HorizontalAlignment="Left" Command="{Binding Path=Service.InspectSuitCommand}">
                         <Image Source="../inspector.ico" />
                     </Button>
                 </DockPanel>
@@ -69,7 +69,7 @@
                         </StackPanel>
                     </DockPanel>
                     <DockPanel VerticalAlignment="Bottom" Margin="0,10,0,0">
-                        <GroupBox Header="Modifiers" DockPanel.Dock="Top">
+                        <GroupBox Header="Modifiers" DockPanel.Dock="Top" >
                             <StackPanel>
                                 <CheckBox Content="Corpse Skin" IsChecked="{Binding Path=HasCorpseSkin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <CheckBox Content="Magic Reflection" IsChecked="{Binding Path=HasMagicReflection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -79,7 +79,7 @@
                         </GroupBox>
                         <GroupBox Header="Form" VerticalAlignment="Bottom">
                             <StackPanel>
-                                <RadioButton Content="None" IsChecked="{Binding Path=IsBaseForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <RadioButton Content="None" IsChecked="{Binding Path=IsBaseForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <RadioButton Content="Vampiric Embrace" IsChecked="{Binding Path=IsVampiricForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <RadioButton Content="Wraith Form" IsChecked="{Binding Path=IsWraithForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>

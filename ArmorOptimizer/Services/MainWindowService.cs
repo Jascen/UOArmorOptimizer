@@ -38,43 +38,33 @@ namespace ArmorOptimizer.Services
             ApplyModifiersCommand = new DelegateCommand(ApplyModifiers, CanApplyModifiers);
         }
 
-        #region OnLoad
+        public IEnumerable<Item> AllItems { get; set; }
+        public IEnumerable<ArmorType> ArmorTypes { get; protected set; }
+        public string FileToImport { get; set; }
+        public IEnumerable<Resource> Resources { get; protected set; }
 
+        #region Commands
+
+        public DelegateCommand ApplyModifiersCommand { get; }
+        public DelegateCommand FindArmorTypesCommand { get; }
+        public DelegateCommand FindResourcesCommand { get; }
+        public DelegateCommand ImportCommand { get; }
+        public DelegateCommand InspectSuitCommand { get; }
+        public DelegateCommand OptimizeSuitCommand { get; }
         public DelegateCommand WindowLoadedCommand { get; }
 
-        public void WindowLoaded()
-        {
-            try
-            {
-                Mouse.OverrideCursor = Cursors.Wait;
-                while (!FindResourcesCommand.CanExecute())
-                {
-                }
-
-                FindResourcesCommand.Execute();
-                while (!FindArmorTypesCommand.CanExecute())
-                {
-                }
-
-                FindArmorTypesCommand.Execute();
-            }
-            finally
-            {
-                Mouse.OverrideCursor = null;
-            }
-        }
-
-        #endregion OnLoad
-
-        #region Inspection
-
-        public DelegateCommand InspectSuitCommand { get; }
+        #endregion Commands
 
         public bool CanInspectSuit()
         {
             return true;
             // TODO: Figure out why this isn't properly firing
             //return Model.SelectedItem != null;
+        }
+
+        public bool CanOptimizeSuit()
+        {
+            return true;
         }
 
         public void InspectSuit()
@@ -93,18 +83,6 @@ namespace ArmorOptimizer.Services
                 Owner = Application.Current.MainWindow,
             };
             editItemWindow.ShowDialog();
-        }
-
-        #endregion Inspection
-
-        #region Optimizing
-
-        public IEnumerable<Item> AllItems { get; set; }
-        public DelegateCommand OptimizeSuitCommand { get; }
-
-        public bool CanOptimizeSuit()
-        {
-            return true;
         }
 
         public async Task OptimizeSuitAsync()
@@ -179,27 +157,27 @@ namespace ArmorOptimizer.Services
             }
         }
 
-        protected Item CheaterMethod(SlotTypes slot, ResistConfiguration resists)
+        public void WindowLoaded()
         {
-            // TODO: Add legit "Uknown" defaults to the database
-            return new Item
+            try
             {
-                UoId = "XXXXXX",
-                ArmorType = ArmorTypes.First(a => a.SlotType == slot),
-                PhysicalResist = resists.Physical,
-                FireResist = resists.Fire,
-                ColdResist = resists.Cold,
-                PoisonResist = resists.Poison,
-                EnergyResist = resists.Energy,
-                Resource = Resources.First(res => null != ArmorTypes.Where(a => a.SlotType == slot).FirstOrDefault(r => r.BaseResourceKindId == res.BaseResourceKindId)),
-            };
+                Mouse.OverrideCursor = Cursors.Wait;
+                while (!FindResourcesCommand.CanExecute())
+                {
+                }
+
+                FindResourcesCommand.Execute();
+                while (!FindArmorTypesCommand.CanExecute())
+                {
+                }
+
+                FindArmorTypesCommand.Execute();
+            }
+            finally
+            {
+                Mouse.OverrideCursor = null;
+            }
         }
-
-        #endregion Optimizing
-
-        #region Modifiers
-
-        public DelegateCommand ApplyModifiersCommand { get; }
 
         protected virtual void ApplyModifiers()
         {
@@ -268,39 +246,38 @@ namespace ArmorOptimizer.Services
 
         protected virtual bool CanApplyModifiers()
         {
-            return Model.MaxResists != null && Model.SelectedSuit != null;
+            return Model.MaxResists != null;
         }
 
-        #endregion Modifiers
-
-        #region Resources
-
-        public DelegateCommand FindResourcesCommand { get; }
-
-        public IEnumerable<Resource> Resources { get; protected set; }
+        protected virtual bool CanFindArmorTypes()
+        {
+            return true;
+        }
 
         protected virtual bool CanFindResources()
         {
             return true;
         }
 
-        protected virtual async Task FindResourcesAsync()
-        {
-            if (!CanFindResources()) throw new InvalidOperationException("Cannot bypass guard.");
-
-            Resources = await DatabaseService.FindAllResourcesAsync();
-        }
-
-        #endregion Resources
-
-        #region Resources
-
-        public IEnumerable<ArmorType> ArmorTypes { get; protected set; }
-        public DelegateCommand FindArmorTypesCommand { get; }
-
-        protected virtual bool CanFindArmorTypes()
+        protected virtual bool CanImportItems()
         {
             return true;
+        }
+
+        protected Item CheaterMethod(SlotTypes slot, ResistConfiguration resists)
+        {
+            // TODO: Add legit "Uknown" defaults to the database
+            return new Item
+            {
+                UoId = "XXXXXX",
+                ArmorType = ArmorTypes.First(a => a.SlotType == slot),
+                PhysicalResist = resists.Physical,
+                FireResist = resists.Fire,
+                ColdResist = resists.Cold,
+                PoisonResist = resists.Poison,
+                EnergyResist = resists.Energy,
+                Resource = Resources.First(res => null != ArmorTypes.Where(a => a.SlotType == slot).FirstOrDefault(r => r.BaseResourceKindId == res.BaseResourceKindId)),
+            };
         }
 
         protected virtual async Task FindArmorTypesAsync()
@@ -310,16 +287,11 @@ namespace ArmorOptimizer.Services
             ArmorTypes = await DatabaseService.FindAllArmorTypesAsync();
         }
 
-        #endregion Resources
-
-        #region Import Items
-
-        public string FileToImport { get; set; }
-        public DelegateCommand ImportCommand { get; }
-
-        protected virtual bool CanImportItems()
+        protected virtual async Task FindResourcesAsync()
         {
-            return true;
+            if (!CanFindResources()) throw new InvalidOperationException("Cannot bypass guard.");
+
+            Resources = await DatabaseService.FindAllResourcesAsync();
         }
 
         protected virtual void ImportItems()
@@ -328,7 +300,5 @@ namespace ArmorOptimizer.Services
 
             ImportingService.Import(FileToImport);
         }
-
-        #endregion Import Items
     }
 }
