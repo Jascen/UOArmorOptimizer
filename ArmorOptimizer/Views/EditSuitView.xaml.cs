@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace ArmorOptimizer.Views
 {
     /// <summary>
-    /// Interaction logic for ItemView.xaml
+    /// Interaction logic for EditSuitView.xaml
     /// </summary>
-    public partial class ItemView : Window
+    public partial class EditSuitView : Window
     {
-        public ItemView()
+        public EditSuitView()
         {
             InitializeComponent();
         }

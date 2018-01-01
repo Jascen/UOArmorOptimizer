@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ArmorOptimizer.Views"
         xmlns:Models="clr-namespace:ArmorOptimizer.Models"
         xmlns:entityFramework="clr-namespace:ArmorOptimizer.EntityFramework"
-        x:Class="ArmorOptimizer.Views.ItemTypeView"
+        x:Class="ArmorOptimizer.Views.EditArmorTypeView"
         mc:Ignorable="d"
         Title="Edit Item Type" Height="285" Width="215">
     <Grid>

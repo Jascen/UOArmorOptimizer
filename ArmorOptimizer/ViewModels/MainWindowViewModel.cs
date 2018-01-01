@@ -11,6 +11,7 @@ namespace ArmorOptimizer.ViewModels
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         private ResistConfiguration _buffedResistances = new ResistConfiguration();
+        private Item _selectedItem;
         private Suit _selectedSuit;
         private IEnumerable<Suit> _suitPermutations;
 
@@ -36,8 +37,6 @@ namespace ArmorOptimizer.ViewModels
             };
         }
 
-        public IEnumerable<Item> AllItems { get; set; }
-
         public ResistConfiguration BuffedResistances
         {
             get => _buffedResistances;
@@ -58,6 +57,18 @@ namespace ArmorOptimizer.ViewModels
         public bool IsVampiricForm { get; set; }
         public bool IsWraithForm { get; set; }
         public ResistConfiguration MaxResists { get; set; }
+
+        public Item SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                if (Equals(value, _selectedItem)) return;
+
+                _selectedItem = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Suit SelectedSuit
         {

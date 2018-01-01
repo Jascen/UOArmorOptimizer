@@ -7,23 +7,29 @@
         xmlns:models="clr-namespace:ArmorOptimizer.ViewModels"
         xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
         xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         x:Class="ArmorOptimizer.Views.MainWindow"
         mc:Ignorable="d"
         Title="Tsai's Ultima Online Armor Optimizer" Width="800" Height="600">
+    <Window.DataContext>
+        <models:MainWindowViewModel />
+    </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding Path= Service.WindowLoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
-        <Grid.DataContext>
-            <models:MainWindowViewModel />
-        </Grid.DataContext>
         <StackPanel Margin="10" Orientation="Vertical" HorizontalAlignment="Left">
             <DockPanel VerticalAlignment="Top" HorizontalAlignment="Left">
                 <DockPanel DockPanel.Dock="Top" Margin="0,10">
                     <Button Width="36" Height="36" HorizontalAlignment="Left">
                         <Image Source="../cog.ico" />
                     </Button>
-                    <Button Width="36" Height="36" Margin="120,0,0,0" HorizontalAlignment="Right" Command="{Binding Service.OptimizeSuitCommand}">
+                    <Button Width="36" Height="36" Margin="120,0,0,0" HorizontalAlignment="Right" Command="{Binding Path=Service.OptimizeSuitCommand}">
                         <Image Source="../build.ico" />
                     </Button>
-                    <Button Width="36" Height="36" Margin="15,0,0,0" HorizontalAlignment="Left">
+                    <Button Width="36" Height="36" Margin="15,0,0,0" HorizontalAlignment="Left" Command="{Binding Path=Service.InspectSuitCommand}">
                         <Image Source="../inspector.ico" />
                     </Button>
                 </DockPanel>
@@ -82,7 +88,7 @@
                 </StackPanel>
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Label Content="Selected Suit" HorizontalAlignment="Center" />
-                    <xcdg:DataGridControl HorizontalAlignment="Stretch" ItemsSource="{Binding Path=SelectedSuit.Items}" AutoCreateColumns="False"  MaxHeight="275" ReadOnly="True">
+                    <xcdg:DataGridControl SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=SelectedSuit.Items}" AutoCreateColumns="False"  MaxHeight="275" ReadOnly="True">
                         <xcdg:DataGridControl.View>
                             <xcdg:TableflowView UseDefaultHeadersFooters="False"  ShowRowSelectorPane="False">
                                 <xcdg:TableflowView.FixedHeaders>
@@ -104,7 +110,7 @@
                         </xcdg:DataGridControl.Columns>
                     </xcdg:DataGridControl>
                     <Label Content="Suit Permutations" HorizontalAlignment="Center" Margin="0,20,0,0" />
-                    <xcdg:DataGridControl SelectedItem="{Binding SelectedSuit}" ItemsSource="{Binding Path=SuitPermutations}" AutoCreateColumns="False" MaxHeight="275" ReadOnly="True">
+                    <xcdg:DataGridControl SelectedItem="{Binding Path=SelectedSuit}" ItemsSource="{Binding Path=SuitPermutations}" AutoCreateColumns="False" MaxHeight="275" ReadOnly="True">
                         <xcdg:DataGridControl.Columns>
                             <xcdg:Column Title="Lost Resists" FieldName="LostResistancePoints" Width="*" />
                             <xcdg:Column Title="Imbues" FieldName="NumberOfImbues" Width="*" />

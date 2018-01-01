@@ -2,11 +2,14 @@
 using ArmorOptimizer.Enums;
 using ArmorOptimizer.Models;
 using ArmorOptimizer.ViewModels;
+using ArmorOptimizer.Views;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace ArmorOptimizer.Services
 {
@@ -26,14 +29,77 @@ namespace ArmorOptimizer.Services
             ImportingService = new ImportingService(DatabaseService);
             OptimizingService = new OptimizingService(1000);
 
+            WindowLoadedCommand = new DelegateCommand(WindowLoaded);
             ImportCommand = new DelegateCommand(ImportItems, CanImportItems);
+            InspectSuitCommand = new DelegateCommand(InspectSuit, CanInspectSuit);
             FindResourcesCommand = new DelegateCommand(async () => await FindResourcesAsync(), CanFindResources);
+            FindArmorTypesCommand = new DelegateCommand(async () => await FindArmorTypesAsync(), CanFindArmorTypes);
             OptimizeSuitCommand = new DelegateCommand(async () => await OptimizeSuitAsync(), CanOptimizeSuit);
             ApplyModifiersCommand = new DelegateCommand(ApplyModifiers, CanApplyModifiers);
         }
 
+        #region OnLoad
+
+        public DelegateCommand WindowLoadedCommand { get; }
+
+        public void WindowLoaded()
+        {
+            try
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+                while (!FindResourcesCommand.CanExecute())
+                {
+                }
+
+                FindResourcesCommand.Execute();
+                while (!FindArmorTypesCommand.CanExecute())
+                {
+                }
+
+                FindArmorTypesCommand.Execute();
+            }
+            finally
+            {
+                Mouse.OverrideCursor = null;
+            }
+        }
+
+        #endregion OnLoad
+
+        #region Inspection
+
+        public DelegateCommand InspectSuitCommand { get; }
+
+        public bool CanInspectSuit()
+        {
+            return true;
+            // TODO: Figure out why this isn't properly firing
+            //return Model.SelectedItem != null;
+        }
+
+        public void InspectSuit()
+        {
+            var editSuitViewModel = new EditSuitViewModel
+            {
+                SelectedSuit = Model.SelectedSuit,
+                Resources = Resources,
+                SelectedArmorType = Model.SelectedItem.ArmorType,
+                ArmorTypes = ArmorTypes,
+            };
+            var editItemWindow = new EditSuitView()
+            {
+                DataContext = editSuitViewModel,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Owner = Application.Current.MainWindow,
+            };
+            editItemWindow.ShowDialog();
+        }
+
+        #endregion Inspection
+
         #region Optimizing
 
+        public IEnumerable<Item> AllItems { get; set; }
         public DelegateCommand OptimizeSuitCommand { get; }
 
         public bool CanOptimizeSuit()
@@ -43,10 +109,10 @@ namespace ArmorOptimizer.Services
 
         public async Task OptimizeSuitAsync()
         {
-            if (Model.AllItems == null)
+            if (AllItems == null)
             {
-                Model.AllItems = await DatabaseService.FindAllItemsAsync();
-                if (Model.AllItems == null || !Model.AllItems.Any())
+                AllItems = await DatabaseService.FindAllItemsAsync();
+                if (AllItems == null || !AllItems.Any())
                 {
                     var items = new List<Item>();
                     var sampleResists = new ResistConfiguration
@@ -57,17 +123,17 @@ namespace ArmorOptimizer.Services
                         Poison = 14,
                         Energy = 15,
                     };
-                    items.Add(CheaterMethod(SlotTypes.Helm, sampleResists, "Verite"));
-                    items.Add(CheaterMethod(SlotTypes.Chest, sampleResists, "Verite"));
-                    items.Add(CheaterMethod(SlotTypes.Arms, sampleResists, "Verite"));
-                    items.Add(CheaterMethod(SlotTypes.Gloves, sampleResists, "Barbed"));
-                    items.Add(CheaterMethod(SlotTypes.Legs, sampleResists, "Verite"));
-                    Model.AllItems = items;
+                    items.Add(CheaterMethod(SlotTypes.Helm, sampleResists));
+                    items.Add(CheaterMethod(SlotTypes.Chest, sampleResists));
+                    items.Add(CheaterMethod(SlotTypes.Arms, sampleResists));
+                    items.Add(CheaterMethod(SlotTypes.Gloves, sampleResists));
+                    items.Add(CheaterMethod(SlotTypes.Legs, sampleResists));
+                    AllItems = items;
                 }
             }
 
             var categorizedItems = new CategorizedItems();
-            foreach (var item in Model.AllItems)
+            foreach (var item in AllItems)
             {
                 switch (item.ArmorType.SlotType)
                 {
@@ -106,27 +172,26 @@ namespace ArmorOptimizer.Services
 
             Model.SelectedSuit = null;
             Model.SuitPermutations = suitPermutations;
+
             if (ApplyModifiersCommand.CanExecute())
             {
                 ApplyModifiersCommand.Execute();
             }
         }
 
-        protected Item CheaterMethod(SlotTypes slot, ResistConfiguration resists, string resourceName)
+        protected Item CheaterMethod(SlotTypes slot, ResistConfiguration resists)
         {
+            // TODO: Add legit "Uknown" defaults to the database
             return new Item
             {
                 UoId = "XXXXXX",
-                ArmorType = new ArmorType
-                {
-                    SlotId = (long)slot
-                },
+                ArmorType = ArmorTypes.First(a => a.SlotType == slot),
                 PhysicalResist = resists.Physical,
                 FireResist = resists.Fire,
                 ColdResist = resists.Cold,
                 PoisonResist = resists.Poison,
                 EnergyResist = resists.Energy,
-                Resource = new Resource { Name = resourceName }
+                Resource = Resources.First(res => null != ArmorTypes.Where(a => a.SlotType == slot).FirstOrDefault(r => r.BaseResourceKindId == res.BaseResourceKindId)),
             };
         }
 
@@ -203,7 +268,7 @@ namespace ArmorOptimizer.Services
 
         protected virtual bool CanApplyModifiers()
         {
-            return Model.MaxResists != null;
+            return Model.MaxResists != null && Model.SelectedSuit != null;
         }
 
         #endregion Modifiers
@@ -224,6 +289,25 @@ namespace ArmorOptimizer.Services
             if (!CanFindResources()) throw new InvalidOperationException("Cannot bypass guard.");
 
             Resources = await DatabaseService.FindAllResourcesAsync();
+        }
+
+        #endregion Resources
+
+        #region Resources
+
+        public IEnumerable<ArmorType> ArmorTypes { get; protected set; }
+        public DelegateCommand FindArmorTypesCommand { get; }
+
+        protected virtual bool CanFindArmorTypes()
+        {
+            return true;
+        }
+
+        protected virtual async Task FindArmorTypesAsync()
+        {
+            if (!CanFindArmorTypes()) throw new InvalidOperationException("Cannot bypass guard.");
+
+            ArmorTypes = await DatabaseService.FindAllArmorTypesAsync();
         }
 
         #endregion Resources
