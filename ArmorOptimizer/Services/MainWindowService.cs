@@ -16,7 +16,6 @@ namespace ArmorOptimizer.Services
     public class MainWindowService
     {
         protected readonly DatabaseService DatabaseService;
-        protected readonly ImportingService ImportingService;
         protected readonly MainWindowViewModel Model;
         protected readonly OptimizingService OptimizingService;
 
@@ -26,7 +25,6 @@ namespace ArmorOptimizer.Services
 
             Model = model;
             DatabaseService = new DatabaseService();
-            ImportingService = new ImportingService();
             OptimizingService = new OptimizingService(1000);
 
             WindowLoadedCommand = new DelegateCommand(WindowLoaded);
@@ -35,7 +33,6 @@ namespace ArmorOptimizer.Services
             FindArmorTypesCommand = new DelegateCommand(async () => await FindArmorTypesAsync(), CanFindArmorTypes);
             FindResourceKindsCommand = new DelegateCommand(async () => await FindResourceKindsAsync(), CanFindResourceKinds);
             FindResourcesCommand = new DelegateCommand(async () => await FindResourcesAsync(), CanFindResources);
-            ImportCommand = new DelegateCommand(ImportItems, CanImportItems);
             InspectSuitCommand = new DelegateCommand(InspectSuit, CanInspectSuit);
             OptimizeSuitCommand = new DelegateCommand(async () => await OptimizeSuitAsync(), CanOptimizeSuit);
         }
@@ -53,7 +50,6 @@ namespace ArmorOptimizer.Services
         public DelegateCommand FindArmorTypesCommand { get; }
         public DelegateCommand FindResourceKindsCommand { get; }
         public DelegateCommand FindResourcesCommand { get; }
-        public DelegateCommand ImportCommand { get; }
         public DelegateCommand InspectSuitCommand { get; }
         public DelegateCommand OptimizeSuitCommand { get; }
         public DelegateCommand WindowLoadedCommand { get; }
@@ -74,6 +70,7 @@ namespace ArmorOptimizer.Services
 
         public void ConfigureSettings()
         {
+            //TODO: This is totally the wrong way to do this.
             var configurationView = new ConfigurationView
             {
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
@@ -88,6 +85,7 @@ namespace ArmorOptimizer.Services
 
         public void InspectSuit()
         {
+            //TODO: This is totally the wrong way to do this.
             var editSuitViewModel = new EditSuitViewModel
             {
                 SelectedSuit = Model.SelectedSuit,
@@ -106,27 +104,10 @@ namespace ArmorOptimizer.Services
 
         public async Task OptimizeSuitAsync()
         {
+            // Fetch all itemd from DB if not yet retrieved.
             if (AllItems == null)
             {
                 AllItems = await DatabaseService.FindAllItemsAsync();
-                if (AllItems == null || !AllItems.Any())
-                {
-                    var items = new List<Item>();
-                    var sampleResists = new ResistConfiguration
-                    {
-                        Physical = 11,
-                        Fire = 12,
-                        Cold = 13,
-                        Poison = 14,
-                        Energy = 15,
-                    };
-                    items.Add(CheaterMethod(SlotTypes.Helm, sampleResists));
-                    items.Add(CheaterMethod(SlotTypes.Chest, sampleResists));
-                    items.Add(CheaterMethod(SlotTypes.Arms, sampleResists));
-                    items.Add(CheaterMethod(SlotTypes.Gloves, sampleResists));
-                    items.Add(CheaterMethod(SlotTypes.Legs, sampleResists));
-                    AllItems = items;
-                }
             }
 
             var categorizedItems = new CategorizedItems();
@@ -295,22 +276,6 @@ namespace ArmorOptimizer.Services
             return true;
         }
 
-        protected Item CheaterMethod(SlotTypes slot, ResistConfiguration resists)
-        {
-            // TODO: Add legit "Uknown" defaults to the database
-            return new Item
-            {
-                UoId = "XXXXXX",
-                ArmorType = ArmorTypes.First(a => a.SlotType == slot),
-                PhysicalResist = resists.Physical,
-                FireResist = resists.Fire,
-                ColdResist = resists.Cold,
-                PoisonResist = resists.Poison,
-                EnergyResist = resists.Energy,
-                Resource = Resources.First(res => null != ArmorTypes.Where(a => a.SlotType == slot).FirstOrDefault(r => r.BaseResourceKindId == res.BaseResourceKindId)),
-            };
-        }
-
         protected virtual async Task FindArmorTypesAsync()
         {
             if (!CanFindArmorTypes()) throw new InvalidOperationException("Cannot bypass guard.");
@@ -330,13 +295,6 @@ namespace ArmorOptimizer.Services
             if (!CanFindResources()) throw new InvalidOperationException("Cannot bypass guard.");
 
             Resources = await DatabaseService.FindAllResourcesAsync();
-        }
-
-        protected virtual void ImportItems()
-        {
-            if (!CanImportItems()) throw new InvalidOperationException("Cannot bypass guard.");
-
-            ImportingService.Import(FileToImport);
         }
     }
 }
