@@ -1,9 +1,9 @@
 ﻿using ArmorOptimizer.EntityFramework;
 using ArmorOptimizer.Models;
+using ArmorOptimizer.Properties;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using ArmorOptimizer.Properties;
 
 namespace ArmorOptimizer.ViewModels
 {

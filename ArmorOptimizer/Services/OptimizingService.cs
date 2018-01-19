@@ -1,10 +1,10 @@
-﻿using ArmorOptimizer.EntityFramework;
+﻿using ArmorOptimizer.Core.Builders;
+using ArmorOptimizer.Core.Enums;
+using ArmorOptimizer.EntityFramework;
 using ArmorOptimizer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ArmorOptimizer.Core.Builders;
-using ArmorOptimizer.Core.Enums;
 
 namespace ArmorOptimizer.Services
 {

@@ -1,11 +1,11 @@
-﻿using ArmorOptimizer.EntityFramework;
+﻿using ArmorOptimizer.Core.Enums;
+using ArmorOptimizer.EntityFramework;
 using ArmorOptimizer.Models;
+using ArmorOptimizer.Properties;
 using ArmorOptimizer.Services;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using ArmorOptimizer.Core.Enums;
-using ArmorOptimizer.Properties;
 
 namespace ArmorOptimizer.ViewModels
 {

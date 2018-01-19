@@ -1,9 +1,9 @@
 ﻿using ArmorOptimizer.EntityFramework;
+using ArmorOptimizer.Properties;
 using ArmorOptimizer.ViewModels;
 using Prism.Commands;
 using System;
 using System.Threading.Tasks;
-using ArmorOptimizer.Properties;
 
 namespace ArmorOptimizer.Services
 {

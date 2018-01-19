@@ -1,15 +1,14 @@
-﻿using ArmorOptimizer.EntityFramework;
+﻿using ArmorOptimizer.Core.Enums;
+using ArmorOptimizer.EntityFramework;
 using ArmorOptimizer.Models;
 using ArmorOptimizer.ViewModels;
 using ArmorOptimizer.Views;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using ArmorOptimizer.Core.Enums;
 
 namespace ArmorOptimizer.Services
 {

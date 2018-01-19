@@ -1,7 +1,7 @@
-﻿using System;
+﻿using ArmorOptimizer.Properties;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using ArmorOptimizer.Properties;
 
 namespace ArmorOptimizer.Services
 {

@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿using ArmorOptimizer.Properties;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using ArmorOptimizer.Properties;
 
 namespace ArmorOptimizer.Models
 {

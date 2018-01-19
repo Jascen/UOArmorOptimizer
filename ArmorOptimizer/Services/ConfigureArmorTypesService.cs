@@ -1,11 +1,11 @@
-﻿using ArmorOptimizer.Models;
+﻿using ArmorOptimizer.Core.Enums;
+using ArmorOptimizer.Models;
+using ArmorOptimizer.Properties;
 using ArmorOptimizer.ViewModels;
 using Prism.Commands;
 using System;
 using System.ComponentModel;
 using System.Linq;
-using ArmorOptimizer.Core.Enums;
-using ArmorOptimizer.Properties;
 
 namespace ArmorOptimizer.Services
 {
@@ -21,16 +21,6 @@ namespace ArmorOptimizer.Services
             Model.PropertyChanged += ModelOnPropertyChanged;
 
             UpdateSelectedArmorTypeCommand = new DelegateCommand(UpdateSelectedArmorType, CanUpdateSelectedArmorType);
-        }
-
-        private void ModelOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            if (propertyChangedEventArgs.PropertyName != nameof(Model.SelectedArmorType)) return;
-
-            if (UpdateSelectedArmorTypeCommand.CanExecute())
-            {
-                UpdateSelectedArmorTypeCommand.Execute();
-            }
         }
 
         public DelegateCommand UpdateSelectedArmorTypeCommand { get; }
@@ -70,6 +60,16 @@ namespace ArmorOptimizer.Services
             };
 
             Model.EditableArmorType = editableModel;
+        }
+
+        private void ModelOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            if (propertyChangedEventArgs.PropertyName != nameof(Model.SelectedArmorType)) return;
+
+            if (UpdateSelectedArmorTypeCommand.CanExecute())
+            {
+                UpdateSelectedArmorTypeCommand.Execute();
+            }
         }
     }
 }
