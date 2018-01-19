@@ -1,10 +1,10 @@
-﻿using ArmorOptimizer.Annotations;
-using ArmorOptimizer.EntityFramework;
+﻿using ArmorOptimizer.EntityFramework;
 using ArmorOptimizer.Models;
 using ArmorOptimizer.Services;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ArmorOptimizer.Properties;
 
 namespace ArmorOptimizer.ViewModels
 {

@@ -1,5 +1,4 @@
 ﻿using ArmorOptimizer.EntityFramework;
-using ArmorOptimizer.Enums;
 using ArmorOptimizer.Models;
 using ArmorOptimizer.ViewModels;
 using ArmorOptimizer.Views;
@@ -10,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using ArmorOptimizer.Core.Enums;
 
 namespace ArmorOptimizer.Services
 {

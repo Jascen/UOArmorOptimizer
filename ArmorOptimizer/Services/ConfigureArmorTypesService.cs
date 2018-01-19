@@ -1,11 +1,11 @@
-﻿using ArmorOptimizer.Annotations;
-using ArmorOptimizer.Models;
+﻿using ArmorOptimizer.Models;
 using ArmorOptimizer.ViewModels;
 using Prism.Commands;
 using System;
 using System.ComponentModel;
 using System.Linq;
-using ArmorOptimizer.Enums;
+using ArmorOptimizer.Core.Enums;
+using ArmorOptimizer.Properties;
 
 namespace ArmorOptimizer.Services
 {

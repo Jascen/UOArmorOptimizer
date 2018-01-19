@@ -1,5 +1,7 @@
-﻿using ArmorOptimizer.Annotations;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using ArmorOptimizer.Properties;
 
 namespace ArmorOptimizer.Services
 {
@@ -7,16 +9,17 @@ namespace ArmorOptimizer.Services
     {
         protected readonly DatabaseService DatabaseService;
 
-        public ImportingService(DatabaseService databaseService)
+        public ImportingService()
         {
-            if (databaseService == null) throw new ArgumentNullException(nameof(databaseService));
-
-            DatabaseService = databaseService;
+            DatabaseService = new DatabaseService();
         }
 
-        public void Import([NotNull] string filename)
+        public IEnumerable<string> Import([NotNull] string filename)
         {
             if (string.IsNullOrWhiteSpace(filename)) throw new ArgumentException(@"Value cannot be null or whitespace.", nameof(filename));
+            if (File.Exists(filename)) throw new FileNotFoundException("Unable to locate file.", filename);
+
+            return File.ReadAllLines(filename);
         }
     }
 }

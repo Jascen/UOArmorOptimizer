@@ -1,6 +1,6 @@
 ﻿using ArmorOptimizer.EntityFramework;
-using ArmorOptimizer.Extensions;
 using System;
+using ArmorOptimizer.Core.Extensions;
 
 namespace ArmorOptimizer.Services
 {

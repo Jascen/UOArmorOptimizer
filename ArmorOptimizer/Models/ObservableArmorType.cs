@@ -1,9 +1,9 @@
-﻿using ArmorOptimizer.Annotations;
-using ArmorOptimizer.EntityFramework;
-using ArmorOptimizer.Enums;
+﻿using ArmorOptimizer.EntityFramework;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ArmorOptimizer.Core.Enums;
+using ArmorOptimizer.Properties;
 
 namespace ArmorOptimizer.Models
 {

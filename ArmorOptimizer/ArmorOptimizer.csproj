@@ -151,16 +151,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Attributes\ColumnNumber.cs" />
+    <Compile Include="Core\Attributes\ColumnNumber.cs" />
     <Compile Include="EntityFramework\ArmorOptimizerContext.cs" />
     <Compile Include="EntityFramework\ArmorType.cs" />
     <Compile Include="EntityFramework\Item.cs" />
     <Compile Include="EntityFramework\ResistConfiguration.cs" />
     <Compile Include="EntityFramework\Resource.cs" />
-    <Compile Include="Builders\SuitBuilder.cs" />
+    <Compile Include="Core\Builders\SuitBuilder.cs" />
     <Compile Include="EntityFramework\ResourceKind.cs" />
-    <Compile Include="Enums\SlotTypes.cs" />
-    <Compile Include="Extensions\ResistConfigurationExtensions.cs" />
+    <Compile Include="Core\Enums\SlotTypes.cs" />
+    <Compile Include="Core\Extensions\ResistConfigurationExtensions.cs" />
     <Compile Include="Models\ArmorCandidate.cs" />
     <Compile Include="Models\ArmorType.cs" />
     <Compile Include="Models\CategorizedItems.cs" />

@@ -1,5 +1,5 @@
-﻿using ArmorOptimizer.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using ArmorOptimizer.Core.Enums;
 
 namespace ArmorOptimizer.EntityFramework
 {

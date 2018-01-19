@@ -1,6 +1,6 @@
 ﻿using ArmorOptimizer.EntityFramework;
 
-namespace ArmorOptimizer.Extensions
+namespace ArmorOptimizer.Core.Extensions
 {
     public static class ResistConfigurationExtensions
     {

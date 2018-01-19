@@ -1,4 +1,4 @@
-﻿namespace ArmorOptimizer.Enums
+﻿namespace ArmorOptimizer.Core.Enums
 {
     public enum SlotTypes
     {

@@ -1,10 +1,10 @@
-﻿using ArmorOptimizer.EntityFramework;
-using ArmorOptimizer.Enums;
-using ArmorOptimizer.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using ArmorOptimizer.Core.Enums;
+using ArmorOptimizer.EntityFramework;
+using ArmorOptimizer.Models;
 
-namespace ArmorOptimizer.Builders
+namespace ArmorOptimizer.Core.Builders
 {
     public class SuitBuilder
     {
