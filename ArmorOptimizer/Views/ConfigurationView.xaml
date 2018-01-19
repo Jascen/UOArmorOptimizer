@@ -1,0 +1,31 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ArmorOptimizer.Views"
+        xmlns:viewModels="clr-namespace:ArmorOptimizer.ViewModels"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        x:Class="ArmorOptimizer.Views.ConfigurationView"
+        mc:Ignorable="d"
+        Title="Configuration" MaxHeight="325" MaxWidth="390" >
+    <Window.DataContext>
+        <viewModels:ConfigurationViewModel />
+    </Window.DataContext>
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+        <TabControl Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+            <TabItem Header="Data Import">
+                <local:DataImportView  VerticalAlignment="Top" />
+            </TabItem>
+            <TabItem Header="Imbuing Preferences">
+                <local:ImbuingConfigurationView VerticalAlignment="Top" />
+            </TabItem>
+            <TabItem Header="Resources">
+                <local:EditResourceView VerticalAlignment="Top" />
+            </TabItem>
+            <TabItem Header="Armor Types" >
+                <local:EditArmorTypeView VerticalAlignment="Top" />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

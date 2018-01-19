@@ -10,124 +10,147 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         x:Class="ArmorOptimizer.Views.MainWindow"
         mc:Ignorable="d"
-        Title="Tsai's Ultima Online Armor Optimizer" Width="800" Height="600">
+        Title="Tsai's Ultima Online Armor Optimizer" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
     <Window.DataContext>
         <models:MainWindowViewModel />
     </Window.DataContext>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding Path= Service.WindowLoadedCommand}"/>
+            <i:InvokeCommandAction Command="{Binding Path= Service.WindowLoadedCommand}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
-        <StackPanel Margin="10" Orientation="Vertical" HorizontalAlignment="Left">
-            <DockPanel VerticalAlignment="Top" HorizontalAlignment="Left">
-                <DockPanel DockPanel.Dock="Top" Margin="0,10">
-                    <Button Width="36" Height="36" HorizontalAlignment="Left">
-                        <Image Source="../cog.ico" />
-                    </Button>
-                    <Button Width="36" Height="36" Margin="10,0,0,0" HorizontalAlignment="Right" Command="{Binding Path=Service.OptimizeSuitCommand}">
-                        <Image Source="../build.ico" />
-                    </Button>
-                    <Button Width="36" Height="36" Margin="10,0,0,0" HorizontalAlignment="Left" Command="{Binding Path=Service.InspectSuitCommand}">
-                        <Image Source="../inspector.ico" />
-                    </Button>
-                </DockPanel>
-                <StackPanel Margin="0,0,10,0" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <DockPanel>
-                        <StackPanel VerticalAlignment="Top">
-                            <Label Content="Resistances" />
-                            <Label Content="Physical" />
-                            <Label Content="Fire" />
-                            <Label Content="Cold" />
-                            <Label Content="Poison" />
-                            <Label Content="Energy" />
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Top">
-                            <Label Content="Target" HorizontalAlignment="Center" />
-                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Physical, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
-                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Fire, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
-                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Cold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
-                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Poison, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
-                            <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Energy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Top">
-                            <Label Content="Total" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.Physical, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.Fire, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.Cold, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.Poison, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=SelectedSuit.TotalResistances.Energy, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Top">
-                            <Label Content="Buffed" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=BuffedResistances.Physical, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=BuffedResistances.Fire, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=BuffedResistances.Cold, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=BuffedResistances.Poison, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                            <Label Content="{Binding Path=BuffedResistances.Energy, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
-                        </StackPanel>
-                    </DockPanel>
-                    <DockPanel VerticalAlignment="Bottom" Margin="0,10,0,0">
-                        <GroupBox Header="Modifiers" DockPanel.Dock="Top" >
-                            <StackPanel>
-                                <CheckBox Content="Corpse Skin" IsChecked="{Binding Path=HasCorpseSkin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <CheckBox Content="Magic Reflection" IsChecked="{Binding Path=HasMagicReflection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <CheckBox Content="Protection" IsChecked="{Binding Path=HasProtection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <CheckBox Content="Reactive Armor" IsChecked="{Binding Path=HasReactiveArmor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="Form" VerticalAlignment="Bottom">
-                            <StackPanel>
-                                <RadioButton Content="None" IsChecked="{Binding Path=IsBaseForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <RadioButton Content="Vampiric Embrace" IsChecked="{Binding Path=IsVampiricForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <RadioButton Content="Wraith Form" IsChecked="{Binding Path=IsWraithForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
-                            </StackPanel>
-                        </GroupBox>
-                    </DockPanel>
-                </StackPanel>
-                <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Label Content="Selected Suit" HorizontalAlignment="Center" />
-                    <xcdg:DataGridControl SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=SelectedSuit.Items}" AutoCreateColumns="False"  MaxHeight="275" ReadOnly="True">
-                        <xcdg:DataGridControl.View>
-                            <xcdg:TableflowView UseDefaultHeadersFooters="False"  ShowRowSelectorPane="False">
-                                <xcdg:TableflowView.FixedHeaders>
-                                    <DataTemplate>
-                                        <xcdg:ColumnManagerRow AllowSort="False" AllowColumnReorder="False" BorderThickness="0" />
-                                    </DataTemplate>
-                                </xcdg:TableflowView.FixedHeaders>
-                            </xcdg:TableflowView>
-                        </xcdg:DataGridControl.View>
-                        <xcdg:DataGridControl.Columns>
-                            <xcdg:Column Title="Id" FieldName="UoId" Width="*" />
-                            <xcdg:Column Title="Slot" FieldName="ArmorType.SlotType" Width="*" />
-                            <xcdg:Column Title="Resource" FieldName="Resource.Name" Width="*" />
-                            <xcdg:Column Title="Physical" FieldName="PhysicalResist" Width="*" />
-                            <xcdg:Column Title="Fire" FieldName="FireResist" Width="*" />
-                            <xcdg:Column Title="Cold" FieldName="ColdResist" Width="*" />
-                            <xcdg:Column Title="Poison" FieldName="PoisonResist" Width="*" />
-                            <xcdg:Column Title="Energy" FieldName="EnergyResist" Width="*" />
-                        </xcdg:DataGridControl.Columns>
-                    </xcdg:DataGridControl>
-                    <Label Content="Suit Permutations" HorizontalAlignment="Center" Margin="0,20,0,0" />
-                    <xcdg:DataGridControl SelectedItem="{Binding Path=SelectedSuit}" ItemsSource="{Binding Path=SuitPermutations}" AutoCreateColumns="False" MaxHeight="275" ReadOnly="True">
-                        <xcdg:DataGridControl.Columns>
-                            <xcdg:Column Title="Lost Resists" FieldName="LostResistancePoints" Width="*" />
-                            <xcdg:Column Title="Imbues" FieldName="NumberOfImbues" Width="*" />
-                            <xcdg:Column Title="Physical" FieldName="TotalResistances.Physical" Width="*" />
-                            <xcdg:Column Title="Fire" FieldName="TotalResistances.Fire" Width="*" />
-                            <xcdg:Column Title="Cold" FieldName="TotalResistances.Cold" Width="*" />
-                            <xcdg:Column Title="Poison" FieldName="TotalResistances.Poison" Width="*" />
-                            <xcdg:Column Title="Energy" FieldName="TotalResistances.Energy" Width="*" />
-                        </xcdg:DataGridControl.Columns>
-                        <xcdg:DataGridControl.View>
-                            <xcdg:TableflowView ShowRowSelectorPane="False">
-                            </xcdg:TableflowView>
-                        </xcdg:DataGridControl.View>
-                    </xcdg:DataGridControl>
-                    <StackPanel />
-                </StackPanel>
-            </DockPanel>
+    <DockPanel Margin="10">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+            <Button Width="36" Height="36" Command="{Binding Path=Service.ConfigureSettingsCommand}">
+                <Image Source="../cog.ico" >
+                    <Image.Effect>
+                        <DropShadowEffect/>
+                    </Image.Effect>
+                </Image>
+            </Button>
+            <Button Width="36" Height="36" Margin="10,0,0,0" Command="{Binding Path=Service.OptimizeSuitCommand}">
+                <Image Source="../build.ico" >
+                    <Image.Effect>
+                        <DropShadowEffect/>
+                    </Image.Effect>
+                </Image>
+            </Button>
+            <Button Width="36" Height="36" Margin="10,0,0,0" Command="{Binding Path=Service.InspectSuitCommand}">
+                <Image Source="../inspector.ico" >
+                    <Image.Effect>
+                        <DropShadowEffect/>
+                    </Image.Effect>
+                </Image>
+            </Button>
         </StackPanel>
-    </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="3*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Top">
+                    <Label Content="Resistances" />
+                    <Label Content="Physical" />
+                    <Label Content="Fire" />
+                    <Label Content="Cold" />
+                    <Label Content="Poison" />
+                    <Label Content="Energy" />
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <Label Content="Target" HorizontalAlignment="Center" />
+                    <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Physical, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
+                    <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Fire, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
+                    <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Cold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
+                    <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Poison, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
+                    <toolkit:IntegerUpDown Value="{Binding Path=TargetResists.Energy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="3" Minimum="0" />
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <Label Content="Total" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Path=SelectedSuit.TotalResistances.Physical, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Path=SelectedSuit.TotalResistances.Fire, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Path=SelectedSuit.TotalResistances.Cold, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Path=SelectedSuit.TotalResistances.Poison, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Path=SelectedSuit.TotalResistances.Energy, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Grid.Column="3">
+                    <Label Content="Buffed" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Path=BuffedResistances.Physical, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Path=BuffedResistances.Fire, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Path=BuffedResistances.Cold, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Path=BuffedResistances.Poison, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                    <Label Content="{Binding Path=BuffedResistances.Energy, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <GroupBox Header="Modifiers">
+                    <StackPanel>
+                        <CheckBox Content="Corpse Skin" IsChecked="{Binding Path=HasCorpseSkin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <CheckBox Content="Magic Reflection" IsChecked="{Binding Path=HasMagicReflection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <CheckBox Content="Protection" IsChecked="{Binding Path=HasProtection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <CheckBox Content="Reactive Armor" IsChecked="{Binding Path=HasReactiveArmor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Form" VerticalAlignment="Bottom">
+                    <StackPanel>
+                        <RadioButton Content="None" IsChecked="{Binding Path=IsBaseForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding SelectedItem, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <RadioButton Content="Vampiric Embrace" IsChecked="{Binding Path=IsVampiricForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <RadioButton Content="Wraith Form" IsChecked="{Binding Path=IsWraithForm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Command="{Binding Path=Service.ApplyModifiersCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="1" Margin="5,0">
+                <Label Content="Selected Suit" HorizontalAlignment="Center" />
+                <xcdg:DataGridControl SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" ItemsSource="{Binding Path=SelectedSuit.Items}" AutoCreateColumns="False"  MaxHeight="275" ReadOnly="True">
+                    <xcdg:DataGridControl.View>
+                        <xcdg:TableflowView UseDefaultHeadersFooters="False"  ShowRowSelectorPane="False">
+                            <xcdg:TableflowView.FixedHeaders>
+                                <DataTemplate>
+                                    <xcdg:ColumnManagerRow AllowSort="False" AllowColumnReorder="False" BorderThickness="0" />
+                                </DataTemplate>
+                            </xcdg:TableflowView.FixedHeaders>
+                        </xcdg:TableflowView>
+                    </xcdg:DataGridControl.View>
+                    <xcdg:DataGridControl.Columns>
+                        <xcdg:Column Title="Id" FieldName="UoId" Width="*" />
+                        <xcdg:Column Title="Slot" FieldName="ArmorType.SlotType" Width="*" />
+                        <xcdg:Column Title="Resource" FieldName="Resource.Name" Width="*" />
+                        <xcdg:Column Title="Physical" FieldName="PhysicalResist" Width="*" />
+                        <xcdg:Column Title="Fire" FieldName="FireResist" Width="*" />
+                        <xcdg:Column Title="Cold" FieldName="ColdResist" Width="*" />
+                        <xcdg:Column Title="Poison" FieldName="PoisonResist" Width="*" />
+                        <xcdg:Column Title="Energy" FieldName="EnergyResist" Width="*" />
+                    </xcdg:DataGridControl.Columns>
+                </xcdg:DataGridControl>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1"  Margin="5,0">
+                <Label Content="Suit Permutations" HorizontalAlignment="Center" />
+                <xcdg:DataGridControl SelectedItem="{Binding Path=SelectedSuit}" ItemsSource="{Binding Path=SuitPermutations}" AutoCreateColumns="False" MaxHeight="275" ReadOnly="True">
+                    <xcdg:DataGridControl.Columns>
+                        <xcdg:Column Title="Lost Resists" FieldName="LostResistancePoints" Width="*" />
+                        <xcdg:Column Title="Imbues" FieldName="NumberOfImbues" Width="*" />
+                        <xcdg:Column Title="Physical" FieldName="TotalResistances.Physical" Width="*" />
+                        <xcdg:Column Title="Fire" FieldName="TotalResistances.Fire" Width="*" />
+                        <xcdg:Column Title="Cold" FieldName="TotalResistances.Cold" Width="*" />
+                        <xcdg:Column Title="Poison" FieldName="TotalResistances.Poison" Width="*" />
+                        <xcdg:Column Title="Energy" FieldName="TotalResistances.Energy" Width="*" />
+                    </xcdg:DataGridControl.Columns>
+                    <xcdg:DataGridControl.View>
+                        <xcdg:TableflowView ShowRowSelectorPane="False">
+                        </xcdg:TableflowView>
+                    </xcdg:DataGridControl.View>
+                </xcdg:DataGridControl>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </Window>

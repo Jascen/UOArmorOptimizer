@@ -165,22 +165,54 @@
     <Compile Include="Models\ArmorType.cs" />
     <Compile Include="Models\CategorizedItems.cs" />
     <Compile Include="Models\CandidateInfo.cs" />
+    <Compile Include="Models\EasyUoRecord.cs" />
+    <Compile Include="Models\ObservableArmorType.cs" />
+    <Compile Include="Models\ObservableResistConfiguration.cs" />
     <Compile Include="Models\Suit.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Services\ConfigurationService.cs" />
+    <Compile Include="Services\ConfigureArmorTypesService.cs" />
     <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\ImportingService.cs" />
     <Compile Include="Services\MainWindowService.cs" />
     <Compile Include="Services\OptimizingService.cs" />
     <Compile Include="Services\ResistanceEvaluatorService.cs" />
+    <Compile Include="ViewModels\ConfigureArmorTypesViewModel.cs" />
+    <Compile Include="ViewModels\DataImportViewModel.cs" />
     <Compile Include="ViewModels\EditSuitViewModel.cs" />
+    <Compile Include="Views\ConfigurationView.xaml.cs">
+      <DependentUpon>ConfigurationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataImportView.xaml.cs">
+      <DependentUpon>DataImportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditArmorTypeView.xaml.cs">
+      <DependentUpon>EditArmorTypeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditResourceView.xaml.cs">
       <DependentUpon>EditResourceView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataImportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EditArmorTypeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EditResourceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EditSuitView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImbuingConfigurationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -192,20 +224,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\EditArmorTypeView.xaml.cs">
-      <DependentUpon>EditArmorTypeView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\EditSuitView.xaml.cs">
       <DependentUpon>EditSuitView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImbuingConfigurationView.xaml.cs">
+      <DependentUpon>ImbuingConfigurationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\EditResourceView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewModels\ConfigurationViewModel.cs" />

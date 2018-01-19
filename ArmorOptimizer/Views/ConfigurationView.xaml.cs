@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ArmorOptimizer.Views
 {
     /// <summary>
-    /// Interaction logic for EditArmorTypeView.xaml
+    /// Interaction logic for ConfigurationView.xaml
     /// </summary>
-    public partial class EditArmorTypeView : UserControl
+    public partial class ConfigurationView : Window
     {
-        public EditArmorTypeView()
+        public ConfigurationView()
         {
             InitializeComponent();
         }

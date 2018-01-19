@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ArmorOptimizer.Views
 {
     /// <summary>
-    /// Interaction logic for EditArmorTypeView.xaml
+    /// Interaction logic for ImbuingConfigurationView.xaml
     /// </summary>
-    public partial class EditArmorTypeView : UserControl
+    public partial class ImbuingConfigurationView : UserControl
     {
-        public EditArmorTypeView()
+        public ImbuingConfigurationView()
         {
             InitializeComponent();
         }

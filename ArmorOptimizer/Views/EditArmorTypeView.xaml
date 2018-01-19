@@ -1,47 +1,63 @@
-﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ArmorOptimizer.Views"
-        xmlns:Models="clr-namespace:ArmorOptimizer.Models"
-        xmlns:entityFramework="clr-namespace:ArmorOptimizer.EntityFramework"
-        x:Class="ArmorOptimizer.Views.EditArmorTypeView"
-        mc:Ignorable="d"
-        Title="Edit Item Type" Height="285" Width="215">
-    <Grid>
-        <Grid.DataContext>
-            <entityFramework:ArmorType/>
-        </Grid.DataContext>
-        <DockPanel Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
-            <StackPanel HorizontalAlignment="Stretch"
-                    Margin="10"
-                    Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel>
-                        <Label Content="UO Type" />
-                        <Label Content="Slot" />
-                        <Label Content="Base Resource" />
-                        <Label Content="Physical" />
-                        <Label Content="Fire" />
-                        <Label Content="Cold" />
-                        <Label Content="Poison" />
-                        <Label Content="Energy" />
-                        <Button Content="Cancel" MinWidth="40" Margin="10" />
-                    </StackPanel>
-                    <StackPanel HorizontalAlignment="Stretch" MinWidth="100">
-                        <TextBox Text="{Binding SelectedArmor.Id}" Padding="4" />
-                        <ComboBox Text="{Binding SelectedArmor.Resource.Name}" Padding="4" />
-                        <ComboBox Text="{Binding SelectedArmor.Resource.Name}" Padding="4" />
-                        <TextBox Text="{Binding SelectedArmor.PhysicalResist}" Padding="4" />
-                        <TextBox Text="{Binding SelectedArmor.FireResist}" Padding="4" />
-                        <TextBox Text="{Binding SelectedArmor.ColdResist}" Padding="4" />
-                        <TextBox Text="{Binding SelectedArmor.PoisonResist}" Padding="4" />
-                        <TextBox Text="{Binding SelectedArmor.EnergyResist}" Padding="4" />
-                        <Button Content="Save" MinWidth="40"  Margin="12.5"/>
-                    </StackPanel>
-                </StackPanel>
-            </StackPanel>
-        </DockPanel>
-    </Grid>
-</Window>
+﻿<UserControl x:Class="ArmorOptimizer.Views.EditArmorTypeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ArmorOptimizer.Views"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" >
+    <DockPanel DataContext="{Binding Path=ConfigureArmorTypesViewModel}">
+        <Grid DockPanel.Dock="Top" Margin="10" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <ListView Grid.Column="0" Grid.Row="0" SelectedItem="{Binding Path=SelectedArmorType}" ItemsSource="{Binding ArmorTypes}" DisplayMemberPath="Name">
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Add" />
+                        <MenuItem Header="Remove" />
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+            <Grid Grid.Column="1" Grid.Row="0" DockPanel.Dock="Top" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label Content="Name" Grid.Column="0" Grid.Row="0" />
+                <Label Content="UO Type" Grid.Column="0" Grid.Row="1" />
+                <Label Content="Slot" Grid.Column="0" Grid.Row="2" />
+                <Label Content="Base Resource" Grid.Column="0" Grid.Row="3" />
+                <Label Content="Physical" Grid.Column="0" Grid.Row="4" />
+                <Label Content="Fire" Grid.Column="0" Grid.Row="5" />
+                <Label Content="Cold" Grid.Column="0" Grid.Row="6" />
+                <Label Content="Poison" Grid.Column="0" Grid.Row="7" />
+                <Label Content="Energy" Grid.Column="0" Grid.Row="8" />
+                <TextBox Text="{Binding Path=EditableArmorType.Name}" Grid.Column="1" Grid.Row="0" />
+                <TextBox Text="{Binding Path=EditableArmorType.ItemType}" Grid.Column="1" Grid.Row="1" />
+                <ComboBox SelectedItem="{Binding Path=EditableArmorType.SlotType}" ItemsSource="{Binding Path=SlotTypes}" Grid.Column="1" Grid.Row="2" />
+                <ComboBox SelectedItem="{Binding Path=EditableArmorType.BaseResourceKind}" ItemsSource="{Binding Path=ResourceKinds}" DisplayMemberPath="Name" Grid.Column="1" Grid.Row="3" />
+                <xctk:IntegerUpDown Value="{Binding Path=EditableArmorType.BaseResist.Physical}" Grid.Column="1" Grid.Row="4" />
+                <xctk:IntegerUpDown Value="{Binding Path=EditableArmorType.BaseResist.Fire}" Grid.Column="1" Grid.Row="5" />
+                <xctk:IntegerUpDown Value="{Binding Path=EditableArmorType.BaseResist.Cold}" Grid.Column="1" Grid.Row="6" />
+                <xctk:IntegerUpDown Value="{Binding Path=EditableArmorType.BaseResist.Poison}" Grid.Column="1" Grid.Row="7" />
+                <xctk:IntegerUpDown Value="{Binding Path=EditableArmorType.BaseResist.Energy}" Grid.Column="1" Grid.Row="8" />
+                <Button Grid.Row="9" Grid.Column="1" Content="Save" />
+            </Grid>
+        </Grid>
+    </DockPanel>
+</UserControl>

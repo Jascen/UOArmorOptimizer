@@ -10,20 +10,20 @@ namespace ArmorOptimizer.Services
     {
         public const string Database = @"ArmorOptimizer.db";
 
-        public async Task AddItemAsync(Item item)
-        {
-            using (var context = new ArmorOptimizerContext())
-            {
-                await context.Item.AddAsync(item);
-                await context.SaveChangesAsync();
-            }
-        }
-
         public async Task AddArmorTypeAsync(ArmorType armorType)
         {
             using (var context = new ArmorOptimizerContext())
             {
                 await context.ArmorType.AddAsync(armorType);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddItemAsync(Item item)
+        {
+            using (var context = new ArmorOptimizerContext())
+            {
+                await context.Item.AddAsync(item);
                 await context.SaveChangesAsync();
             }
         }
@@ -59,6 +59,16 @@ namespace ArmorOptimizer.Services
                     .Include(r => r.Resource).ThenInclude(r => r.BaseResourceKind)
                     .Include(r => r.Resource).ThenInclude(r => r.BonusResist)
                     .Select(recs => recs).ToListAsync();
+            }
+        }
+
+        public Task<List<ResourceKind>> FindAllResourceKindsAsync()
+        {
+            using (var context = new ArmorOptimizerContext())
+            {
+                context.ChangeTracker.AutoDetectChangesEnabled = false;
+
+                return context.ResourceKind.Select(recs => recs).ToListAsync();
             }
         }
 

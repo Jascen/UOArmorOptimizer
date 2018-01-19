@@ -26,27 +26,32 @@ namespace ArmorOptimizer.Services
 
             Model = model;
             DatabaseService = new DatabaseService();
-            ImportingService = new ImportingService(DatabaseService);
+            ImportingService = new ImportingService();
             OptimizingService = new OptimizingService(1000);
 
             WindowLoadedCommand = new DelegateCommand(WindowLoaded);
+            ConfigureSettingsCommand = new DelegateCommand(ConfigureSettings);
+            ApplyModifiersCommand = new DelegateCommand(ApplyModifiers, CanApplyModifiers);
+            FindArmorTypesCommand = new DelegateCommand(async () => await FindArmorTypesAsync(), CanFindArmorTypes);
+            FindResourceKindsCommand = new DelegateCommand(async () => await FindResourceKindsAsync(), CanFindResourceKinds);
+            FindResourcesCommand = new DelegateCommand(async () => await FindResourcesAsync(), CanFindResources);
             ImportCommand = new DelegateCommand(ImportItems, CanImportItems);
             InspectSuitCommand = new DelegateCommand(InspectSuit, CanInspectSuit);
-            FindResourcesCommand = new DelegateCommand(async () => await FindResourcesAsync(), CanFindResources);
-            FindArmorTypesCommand = new DelegateCommand(async () => await FindArmorTypesAsync(), CanFindArmorTypes);
             OptimizeSuitCommand = new DelegateCommand(async () => await OptimizeSuitAsync(), CanOptimizeSuit);
-            ApplyModifiersCommand = new DelegateCommand(ApplyModifiers, CanApplyModifiers);
         }
 
         public IEnumerable<Item> AllItems { get; set; }
         public IEnumerable<ArmorType> ArmorTypes { get; protected set; }
         public string FileToImport { get; set; }
+        public IEnumerable<ResourceKind> ResourceKinds { get; protected set; }
         public IEnumerable<Resource> Resources { get; protected set; }
 
         #region Commands
 
         public DelegateCommand ApplyModifiersCommand { get; }
+        public DelegateCommand ConfigureSettingsCommand { get; }
         public DelegateCommand FindArmorTypesCommand { get; }
+        public DelegateCommand FindResourceKindsCommand { get; }
         public DelegateCommand FindResourcesCommand { get; }
         public DelegateCommand ImportCommand { get; }
         public DelegateCommand InspectSuitCommand { get; }
@@ -67,6 +72,20 @@ namespace ArmorOptimizer.Services
             return true;
         }
 
+        public void ConfigureSettings()
+        {
+            var configurationView = new ConfigurationView
+            {
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Owner = Application.Current.MainWindow,
+            };
+            var configureArmorTypesViewModel = ((ConfigurationViewModel)configurationView.DataContext).ConfigureArmorTypesViewModel;
+            configureArmorTypesViewModel.ArmorTypes = ArmorTypes;
+            configureArmorTypesViewModel.ResourceKinds = ResourceKinds;
+            configureArmorTypesViewModel.SlotTypes = new List<SlotTypes> { SlotTypes.Helm, SlotTypes.Chest, SlotTypes.Arms, SlotTypes.Gloves, SlotTypes.Legs, SlotTypes.Misc };
+            configurationView.ShowDialog();
+        }
+
         public void InspectSuit()
         {
             var editSuitViewModel = new EditSuitViewModel
@@ -76,13 +95,13 @@ namespace ArmorOptimizer.Services
                 SelectedArmorType = Model.SelectedItem.ArmorType,
                 ArmorTypes = ArmorTypes,
             };
-            var editItemWindow = new EditSuitView()
+            var editSuitView = new EditSuitView()
             {
                 DataContext = editSuitViewModel,
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 Owner = Application.Current.MainWindow,
             };
-            editItemWindow.ShowDialog();
+            editSuitView.ShowDialog();
         }
 
         public async Task OptimizeSuitAsync()
@@ -167,11 +186,18 @@ namespace ArmorOptimizer.Services
                 }
 
                 FindResourcesCommand.Execute();
+
                 while (!FindArmorTypesCommand.CanExecute())
                 {
                 }
 
                 FindArmorTypesCommand.Execute();
+
+                while (!FindResourceKindsCommand.CanExecute())
+                {
+                }
+
+                FindResourceKindsCommand.Execute();
             }
             finally
             {
@@ -254,6 +280,11 @@ namespace ArmorOptimizer.Services
             return true;
         }
 
+        protected virtual bool CanFindResourceKinds()
+        {
+            return true;
+        }
+
         protected virtual bool CanFindResources()
         {
             return true;
@@ -285,6 +316,13 @@ namespace ArmorOptimizer.Services
             if (!CanFindArmorTypes()) throw new InvalidOperationException("Cannot bypass guard.");
 
             ArmorTypes = await DatabaseService.FindAllArmorTypesAsync();
+        }
+
+        protected virtual async Task FindResourceKindsAsync()
+        {
+            if (!CanFindResourceKinds()) throw new InvalidOperationException("Cannot bypass guard.");
+
+            ResourceKinds = await DatabaseService.FindAllResourceKindsAsync();
         }
 
         protected virtual async Task FindResourcesAsync()

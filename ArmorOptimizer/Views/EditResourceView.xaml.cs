@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ArmorOptimizer.Views
@@ -17,7 +18,7 @@ namespace ArmorOptimizer.Views
     /// <summary>
     /// Interaction logic for EditResourceView.xaml
     /// </summary>
-    public partial class EditResourceView : Window
+    public partial class EditResourceView : UserControl
     {
         public EditResourceView()
         {
