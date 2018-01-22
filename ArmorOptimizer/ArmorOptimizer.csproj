@@ -153,7 +153,7 @@
     </ApplicationDefinition>
     <Compile Include="Core\Attributes\ColumnNumber.cs" />
     <Compile Include="Core\Extensions\IEnumerableExtensions.cs" />
-    <Compile Include="Core\Extensions\ItemExtensions.cs" />
+    <Compile Include="Core\Extensions\ImbueableItemExtensions.cs" />
     <Compile Include="EntityFramework\ArmorOptimizerContext.cs" />
     <Compile Include="EntityFramework\ArmorType.cs" />
     <Compile Include="EntityFramework\Item.cs" />
@@ -169,15 +169,16 @@
     <Compile Include="Models\CandidateInfo.cs" />
     <Compile Include="Models\EasyUoRecord.cs" />
     <Compile Include="Models\EasyUoRecordKeyMap.cs" />
+    <Compile Include="Models\ImbueableItem.cs" />
     <Compile Include="Models\ObservableArmorType.cs" />
     <Compile Include="Models\ObservableResistConfiguration.cs" />
     <Compile Include="Models\Suit.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Services\ArmorEvaluatorService.cs" />
+    <Compile Include="Services\ImbueableItemEvaluatorService.cs" />
     <Compile Include="Services\ConfigurationService.cs" />
     <Compile Include="Services\ConfigureArmorTypesService.cs" />
     <Compile Include="Services\DatabaseService.cs" />
-    <Compile Include="Services\ImbuingService.cs" />
+    <Compile Include="Services\ImbuingPermutationService.cs" />
     <Compile Include="Services\ImportingService.cs" />
     <Compile Include="Services\MainWindowService.cs" />
     <Compile Include="Services\OptimizingService.cs" />
