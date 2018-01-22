@@ -1,7 +1,7 @@
-﻿using ArmorOptimizer.Core.Enums;
+﻿using ArmorOptimizer.Annotations;
+using ArmorOptimizer.Core.Enums;
 using ArmorOptimizer.EntityFramework;
 using ArmorOptimizer.Models;
-using ArmorOptimizer.Properties;
 using ArmorOptimizer.Services;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,8 +11,6 @@ namespace ArmorOptimizer.ViewModels
 {
     public class ConfigureArmorTypesViewModel : INotifyPropertyChanged
     {
-        protected readonly ConfigureArmorTypesService Service;
-
         private IEnumerable<ArmorType> _armorTypes;
         private ObservableArmorType _editableArmorType;
         private IEnumerable<ResourceKind> _resourceKinds;
@@ -71,6 +69,7 @@ namespace ArmorOptimizer.ViewModels
             }
         }
 
+        public ConfigureArmorTypesService Service { get; }
         public IEnumerable<SlotTypes> SlotTypes { get; set; }
 
         #region INotifyPropertyChanged

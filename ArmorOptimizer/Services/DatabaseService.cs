@@ -28,6 +28,18 @@ namespace ArmorOptimizer.Services
             }
         }
 
+        public async Task AddItemsAsync(IEnumerable<Item> items)
+        {
+            using (var context = new ArmorOptimizerContext())
+            {
+                foreach (var item in items)
+                {
+                    await context.Item.AddAsync(item);
+                    await context.SaveChangesAsync();
+                }
+            }
+        }
+
         public async Task AddResourceAsync(Resource resource)
         {
             using (var context = new ArmorOptimizerContext())

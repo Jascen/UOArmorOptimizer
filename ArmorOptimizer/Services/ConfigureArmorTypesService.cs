@@ -1,6 +1,6 @@
-﻿using ArmorOptimizer.Core.Enums;
+﻿using ArmorOptimizer.Annotations;
+using ArmorOptimizer.Core.Enums;
 using ArmorOptimizer.Models;
-using ArmorOptimizer.Properties;
 using ArmorOptimizer.ViewModels;
 using Prism.Commands;
 using System;
@@ -39,7 +39,7 @@ namespace ArmorOptimizer.Services
             if (selectedBaseResource == null) throw new ArgumentException("Failed to locate Base Resource Kind.");
 
             var selectedSlotType = Model.SlotTypes.FirstOrDefault(s => (int)s == selectedModel.SlotId);
-            if (selectedSlotType is default(SlotTypes)) throw new ArgumentException("Failed to locate Slot Type.");
+            if (!Enum.IsDefined(typeof(SlotTypes), selectedSlotType)) throw new ArgumentException("Failed to locate Slot Type.");
 
             var newResist = new ObservableResistConfiguration
             {

@@ -59,7 +59,7 @@ namespace ArmorOptimizer.Services
         {
             return true;
             // TODO: Figure out why this isn't properly firing
-            //return Model.SelectedItem != null;
+            // return Model.SelectedItem != null;
         }
 
         public bool CanOptimizeSuit()
@@ -69,16 +69,22 @@ namespace ArmorOptimizer.Services
 
         public void ConfigureSettings()
         {
-            //TODO: This is totally the wrong way to do this.
+            //TODO: Figure out how to properly fetch and display a View
             var configurationView = new ConfigurationView
             {
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 Owner = Application.Current.MainWindow,
             };
-            var configureArmorTypesViewModel = ((ConfigurationViewModel)configurationView.DataContext).ConfigureArmorTypesViewModel;
+            var configurationContext = (ConfigurationViewModel)configurationView.DataContext;
+
+            // TODO: Find a way to share the references to these Lists
+            var configureArmorTypesViewModel = configurationContext.ConfigureArmorTypesViewModel;
             configureArmorTypesViewModel.ArmorTypes = ArmorTypes;
             configureArmorTypesViewModel.ResourceKinds = ResourceKinds;
             configureArmorTypesViewModel.SlotTypes = new List<SlotTypes> { SlotTypes.Helm, SlotTypes.Chest, SlotTypes.Arms, SlotTypes.Gloves, SlotTypes.Legs, SlotTypes.Misc };
+            var dataImportViewModel = configurationContext.DataImportViewModel;
+            dataImportViewModel.Resources = Resources;
+            dataImportViewModel.ArmorTypes = ArmorTypes;
             configurationView.ShowDialog();
         }
 
@@ -139,10 +145,15 @@ namespace ArmorOptimizer.Services
                         break;
 
                     case SlotTypes.Unknown:
+                        // ignored
+                        break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
+
+            // TODO: Form imbued permutations of the items prior to optimizing.
 
             var betterSuit = OptimizingService.OptimizeSuit(Model.TargetResists, categorizedItems, Model.SelectedSuit, out var suitPermutations);
             if (betterSuit == null) return;

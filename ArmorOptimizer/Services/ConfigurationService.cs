@@ -1,5 +1,5 @@
-﻿using ArmorOptimizer.EntityFramework;
-using ArmorOptimizer.Properties;
+﻿using ArmorOptimizer.Annotations;
+using ArmorOptimizer.EntityFramework;
 using ArmorOptimizer.ViewModels;
 using Prism.Commands;
 using System;

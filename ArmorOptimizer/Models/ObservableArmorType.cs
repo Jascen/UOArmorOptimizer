@@ -1,6 +1,6 @@
-﻿using ArmorOptimizer.Core.Enums;
+﻿using ArmorOptimizer.Annotations;
+using ArmorOptimizer.Core.Enums;
 using ArmorOptimizer.EntityFramework;
-using ArmorOptimizer.Properties;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

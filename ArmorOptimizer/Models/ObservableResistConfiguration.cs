@@ -1,4 +1,4 @@
-﻿using ArmorOptimizer.Properties;
+﻿using ArmorOptimizer.Annotations;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 

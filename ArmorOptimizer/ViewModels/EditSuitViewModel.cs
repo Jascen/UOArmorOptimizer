@@ -1,6 +1,6 @@
-﻿using ArmorOptimizer.EntityFramework;
+﻿using ArmorOptimizer.Annotations;
+using ArmorOptimizer.EntityFramework;
 using ArmorOptimizer.Models;
-using ArmorOptimizer.Properties;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
