@@ -7,7 +7,7 @@
              xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
              xmlns:ViewModels="clr-namespace:ArmorOptimizer.ViewModels" x:Class="ArmorOptimizer.Views.DataImportView"
              mc:Ignorable="d">
-    <DockPanel DataContext="{Binding Path=DataImportViewModel}">
+    <DockPanel DataContext="{Binding Path=DataImportViewModel}" Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
         <StackPanel Margin="10" DockPanel.Dock="Top">
             <Grid>
                 <Grid.ColumnDefinitions>

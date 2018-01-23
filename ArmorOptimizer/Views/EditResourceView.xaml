@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ArmorOptimizer.Views"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d">
-    <DockPanel>
+    <DockPanel Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
         <Grid DockPanel.Dock="Top" Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
